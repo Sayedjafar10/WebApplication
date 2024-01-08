@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CV Applikation</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebApplication2.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebApplication2</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                            
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="VaraCV">Våra CVn</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="VaraProjekt">Projekt</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="HittaCV">Hitta ett CV</a>
+                        </li>
+
+                        </li>
+                        <!-- Visa dessa länkar endast om användaren är utloggad -->
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            @* Placerar dessa länkar längst till höger med hjälp av bootstrap *@
+                            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Logga in</a>
+                                    </li>
+
+           
+                                </ul>
+                            </div>
+                        }
+
+
+                        <!-- Visa dessa länkar endast om användaren är inloggad -->
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @* Placerar dessa länkar längst till höger med hjälp av bootstrap *@
+                            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="UpdateUser">Min profil</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="UserCV" asp-route-id="">Mitt CV</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <form method="post" asp-controller="Account" asp-action="Logout">
+                                            <button type="submit" class="nav-link text-dark" style="border: none; background: none; cursor: pointer;">Logga ut</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        }
+                        @* <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="ShowSearchForm">Sök</a>
+                        </li> *@
+
+
+                    </ul>
+                </div>
+            </div>
+             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container-fluid">
+                    <!-- ... övriga delar av navigationsmenyn ... -->
+
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1">
+                            <!-- ... andra länkar ... -->
+                            <!-- Visa dessa länkar endast om användaren är inloggad -->
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="ChangePassword">Ändra lösenord</a>
+                                </li>
+                                <!-- Lägg till andra länkar för inloggade användare här -->
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </nav>
+
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - CV Applikation - <a asp-area="" asp-controller="Home" asp-action="Index">Hem</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

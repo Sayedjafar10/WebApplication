@@ -1,0 +1,57 @@
+﻿    @model RegisterViewModel;
+
+    @{
+        ViewData["Title"] = "Uppdatera profil";
+    }
+
+
+    <h2>@ViewData["Title"]</h2>
+
+    <form asp-action="EditProfile" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="Name" class="control-label">Namn</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Email" class="control-label">Email</label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+
+@* 
+    <div class="form-group">
+        <label asp-for="Address" class="control-label">Address</label>
+        <input asp-for="Address" class="form-control" />
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div> *@
+
+    <div class="form-group">
+        <label asp-for="ProfileType" class="control-label">Profile Type</label>
+        <select asp-for="ProfileType" asp-items="Html.GetEnumSelectList<ProfileType>()" class="form-control"></select>
+        <span asp-validation-for="ProfileType" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success mt-2">Uppdatera</button>
+   
+    <a class="btn btn-outline-success mt-2" asp-area="" asp-controller="Account" asp-action="ChangePassword">Ändra lösenord</a>
+
+    </form>
+    @if (ViewBag.SuccessMessage != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @ViewBag.SuccessMessage
+        </div>
+    }
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.ErrorMessage
+        </div>
+    }
+
+

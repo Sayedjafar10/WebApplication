@@ -1,0 +1,34 @@
+﻿@model LoginViewModel;
+
+@{
+    ViewData["Title"] = "login";
+}
+
+<h2>Login</h2>
+
+<form asp-action="login" asp-controller="Account">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <input asp-for="Password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <div class="form-group form-check">
+        <input asp-for="RememberMe" class="form-check-input" />
+        <label asp-for="RememberMe" class="form-check-label"></label>
+    </div>
+
+    <button type="submit" class="btn btn-success mt-2">Logga in</button>
+
+    <!-- Lägg till länken för registrering med Bootstrap-stil -->
+    <a class="btn btn-outline-success mt-2" asp-area="" asp-controller="Account" asp-action="Register">Ny här? Registrera dig här!</a>
+
+</form>

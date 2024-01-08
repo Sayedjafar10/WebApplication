@@ -1,0 +1,21 @@
+﻿@model Meddelande
+
+<ul>
+@foreach(var meddelande in ViewBag.Messages)
+{
+   if(meddelande.ReceiverId == ViewBag.CVUser)
+   {
+     <li>
+         <h3>@meddelande.Sender.Name</h3>
+         <h3>@meddelande.Timestamp</h3>
+         <p>@meddelande.Content</p>
+     </li>   
+   }     
+}
+</ul>
+
+<form asp-action="SendMessage" method="post">
+    <input asp-for="ReceiverId" type="text" class="form-control" value="@ViewBag.CVUser" hidden/>
+    <textarea asp-for="Content" type="text" class="form-control" rows="2"></textarea>
+    <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block mb-4">Skicka</button>
+</form>

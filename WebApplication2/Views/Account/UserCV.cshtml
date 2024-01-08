@@ -1,0 +1,79 @@
+﻿@model CV
+<!--MeddelandeKonversation-->
+<div>
+    <a asp-controller="Message" asp-action="Conversation" asp-route-id="@Model.UserId">Chat</a>
+</div>
+
+<!--Hela CVt-->
+<div>
+    <!--Användar info-->
+    <div>
+        <h2>@Model.User.Name</h2>
+        <h2>@Model.User.Email</h2>
+    </div>
+    <!--Kompetens-->
+    <div>
+        <ul>
+            @foreach (var kompetens in Model.CVKompetenser)
+            {
+                if (kompetens.CVId == Model.Id)
+                {
+                    <li>
+                        <div>
+                            <h3>@kompetens.Kompetens.Titel</h3>
+                            <p>@kompetens.Kompetens.Beskrivning</p>
+                        </div>
+                    </li>
+                }
+            }
+        </ul>
+        @if(ViewBag.CurrentUser == Model.UserId)
+        {
+            <a href="/Account/AddKompetens">Lägg till Kompetens</a>
+        }
+        
+
+    </div>
+    <!--Erfarenheter-->
+    <div>
+        <ul>
+            @foreach (var erfarenhet in Model.CVErfarenheter)
+            {
+                if (erfarenhet.CVId == Model.Id)
+                {
+                    <li>
+                        <div>
+                            <h3>@erfarenhet.Erfarenhet.Title</h3>
+                            <p>@erfarenhet.Erfarenhet.Beskrivning</p>
+                        </div>
+                    </li>
+                }
+            }
+        </ul>
+        @if (ViewBag.CurrentUser == Model.UserId)
+        {
+            <a href="/Account/AddErfarenhet">Lägg till Erfarenhet</a>
+        }
+    </div>
+    <!--Utbildningar-->
+    <div>
+        <ul>
+            @foreach (var utbildning in Model.CVUtbildningar)
+            {
+                if (utbildning.CVId == Model.Id)
+                {
+                    <li>
+                        <div>
+                            <h3>@utbildning.Utbildning.Namn</h3>
+                            <p>@utbildning.Utbildning.Beskrivning</p>
+                        </div>
+                    </li>
+                }
+            }
+        </ul>
+        @if (ViewBag.CurrentUser == Model.UserId)
+        {
+            <a href="/Account/AddUtbildning">Lägg till Utbildning</a>
+        }
+    </div>
+</div>

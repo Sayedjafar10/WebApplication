@@ -1,0 +1,38 @@
+﻿@model Project
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-action="SkapaProjekt" method="post">
+
+    <!-- Projekt namnet-->
+    <div>
+        <label class="form-label"> Projekt Namn</label>
+        <input asp-for="Namn" type="text" class="form-control" />
+
+    </div>
+
+    <!-- Beskrivning fältet-->
+    <div data-mdb-input-init class="form-outline mb-4">
+        <label class="form-label" for="form6Example7"> Projekt Beskrivning</label>
+        <textarea asp-for="Beskrivning" type="text" class="form-control" id="form6Example7" rows="4"></textarea>
+    </div>
+
+    <!-- Start datum fältet-->
+    <div data-mdb-input-init class="form-outline mb-4">
+        <label class="form-label" for="form6Example5">Start Datum</label>
+        <input asp-for="StartTime" type="datetime" id="form6Example5" class="form-control" placeholder="yyyy-MM-dd" />
+    </div>
+
+    <!-- Slut datum fältet-->
+    <div data-mdb-input-init class="form-outline mb-4">
+        <label class="form-label" for="form6Example6">Slut Datum</label>
+        <input asp-for="EndTime" type="datetime" id="form6Example6" class="form-control" placeholder="yyyy-MM-dd" />
+
+    </div>
+
+    <!-- Skap knappen-->
+    <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block mb-4">Skapa projekt</button>
+
+</form>
+<!--Länk som skickar till 'VaraProjekt'' vyn-->
+<a asp-action="VaraProjekt">Se alla projekt</a>

@@ -1,0 +1,24 @@
+﻿@model SearchModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Sök på en av våra användare</title>
+</head>
+<body>
+
+    <div class="container mt-5">
+        <h2 class="mb-4">Sök på en av våra användare</h2>
+        <nav class="navbar navbar-light bg-light">
+            @using (Html.BeginForm("Index", "Account", FormMethod.Get, new { @class = "form-inline" }))
+            {
+                <input class="form-control mr-sm-2" type="search" placeholder="Sök på användare" name="SearchText" value="@Model.SearchText" />
+                <button class="btn btn-success my-2 my-sm-2" type="submit">Sök</button>
+            }
+        </nav>
+        <!-- Ditt övriga innehåll här -->
+    </div>
+
+</body>
+</html>

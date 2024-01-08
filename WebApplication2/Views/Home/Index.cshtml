@@ -1,0 +1,68 @@
+﻿@using System.Security.Claims
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Välkommen till SMECDs CV-sida!</h2>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Urval av CVn vi lagrar:</h4>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Förnamn</th>
+                            <th>Efternamn</th>
+                            <th>Email</th>
+                            <th>Utbildning</th>
+                            <th>Erfarenheter</th>
+                            <th>Kompetenser</th>
+                            <th>Projekt</th>
+                            <th>Profil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Max</td>
+                            <td>Hedström</td>
+                            <td>max.hedstrom@icloud.com</td>
+                            <td>Systemvetenskap</td>
+                            <td>Postnord</td>
+                            <td>SQL</td>
+                            <td>MVC project</td>
+                            <td>
+                                <!-- Här lägger du till länken för att visa profilen -->
+                                <a asp-controller="Account" asp-action="ViewProfile" asp-route-userId="@User.FindFirstValue(ClaimTypes.NameIdentifier)" class="btn btn-outline-success mt-2">Visa profil</a>
+                            </td>
+                        </tr>
+                        <!-- Lägg till fler rader efter behov -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <h4>Senast tillagda projekt</h4>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Namn</th>
+                        <th>Beskrivning</th>
+                        <th>Datum tillagd</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>MVC Project</td>
+                        <td>Ett projekt där vi skapar en hemsida där cv lagras</td>
+                        <td>2024-01-05</td>
+                        <td>
+                            <a asp-action="VaraProjekt" class="btn btn-outline-success mt-2" role="button">Projekt listan</a>
+                        </td>
+                    </tr>
+                    <!-- Lägg till fler rader efter behov -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

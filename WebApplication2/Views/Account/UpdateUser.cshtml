@@ -1,0 +1,41 @@
+﻿@model UpdateUserViewModel;
+
+@if (User.Identity.IsAuthenticated)
+{
+    <form asp-controller="Account" asp-action="UpdateUser" method="post" class="p-4">
+        <!-- Övriga fält ... -->
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="ProfileType" class="form-label">Profiltyp</label>
+            <select asp-for="ProfileType" class="form-control">
+                @foreach (var type in Enum.GetValues(typeof(ProfileType)))
+                {
+                    <option value="@type">@type</option>
+                }
+            </select>
+        </div>
+
+
+        <div class="mt-3">
+            <button type="submit" class="btn btn-success">Uppdatera</button>
+            <a class="btn btn-outline-success ml-2" asp-area="" asp-controller="Account" asp-action="ChangePassword">Ändra lösenord</a>
+        </div>
+    </form>
+    
+    
+}
+else
+{
+    <p>Användaren är inte inloggad</p>
+    <!-- Här kan du lägga till länkar för inloggning eller registrering -->
+}

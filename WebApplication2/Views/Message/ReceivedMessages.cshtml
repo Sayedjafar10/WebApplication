@@ -1,0 +1,32 @@
+﻿@model IEnumerable<WebApplication2.Models.MessageViewModel>
+
+<h2>Received Messages</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Från</th>
+            <th>Meddelande</th>
+            <th>Togs emot</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var meddelande in Model)
+        {
+            <tr>
+                <td>@meddelande.SenderName</td>
+                <td>@meddelande.Content</td>
+                <td>@meddelande.Timestamp.ToString("g")</td>
+                <td>@(meddelande.IsRead ? "Läst" : "Oläst")</td>
+                <td>
+                    @if (!meddelande.IsRead)
+                    {
+                        <a asp-action="MarkAsRead" asp-route-messageId="@meddelande.MessageId" class="btn btn-primary btn-sm">Markera som läst</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

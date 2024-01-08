@@ -1,0 +1,50 @@
+﻿@model List<WebApplication2.Models.CV>
+
+<h2>Våra CVn</h2>
+<h4>@ViewBag.Meddelande</h4>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <!-- Removed the ID column -->
+                <th>Namn</th>
+                <th>Email</th>
+                <th>Utbildning</th>
+                <th>Erfarenheter</th>
+                <th>Kompetenser</th>
+                <th>Projekt</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cv in Model)
+            {
+                <tr>
+                    <!-- Removed the cell for ID -->
+                    <td><a asp-controller="Account" asp-action="UserCV" asp-route-id="@cv.UserId">@cv.User.Name</a></td>
+                    <td>@cv.User.Email</td>
+                    <td>
+                        @foreach (var utbildning in cv.CVUtbildningar)
+                        {
+                            <p>@utbildning.Utbildning.Namn - @utbildning.Utbildning.Beskrivning</p>
+                        }
+                    </td>
+                    <td>
+                        @foreach (var erfarenhet in cv.CVErfarenheter)
+                        {
+                            <p>@erfarenhet.Erfarenhet.Title - @erfarenhet.Erfarenhet.Beskrivning</p>
+                        }
+                    </td>
+                    <td>
+                        @foreach (var kompetens in cv.CVKompetenser)
+                        {
+                            <p>@kompetens.Kompetens.Titel - @kompetens.Kompetens.Beskrivning</p>
+                        }
+                    </td>
+                    <td>
+                        <!-- Your code for Projekt column here -->
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

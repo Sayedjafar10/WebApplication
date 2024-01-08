@@ -1,0 +1,19 @@
+﻿@model Kompetens; 
+
+@{
+    ViewData["Title"] = "Lägg till Kompetens";
+}
+
+<h2>Lägg till Kompetens</h2>
+
+<form asp-action="AddKompetens" asp-controller="Account" method="post">
+    <div class="form-group">
+        <label for="Titel">Kompetensens Titel</label>
+        <input type="text" class="form-control" id="Titel" name="Titel" required>
+    </div>
+    <div class="form-group">
+        <label for="Beskrivning">Beskrivning</label>
+        <textarea class="form-control" id="Beskrivning" name="Beskrivning" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Lägg till</button>
+</form>

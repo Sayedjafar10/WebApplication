@@ -1,0 +1,40 @@
+﻿@model List<User>
+
+@{
+    ViewData["Title"] = "Available Users";
+}
+
+<header class="d-flex justify-content-between align-items-center">
+    <h2 class="mb-0">Tillgängliga användare</h2>
+    <!-- Visa dessa länkar oavsett autentiseringstillstånd -->
+    <div class="d-flex align-items-center">
+        <a class="btn btn-outline-success" asp-area="" asp-controller="Account" asp-action="ShowSearchForm">Sök på en användare</a>
+    </div>
+</header>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Namn</th>
+            <th>E-post</th>
+            <th>Profiltyp</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            @if (User.Identity.IsAuthenticated || user.ProfileType == ProfileType.Public)
+            {
+                <tr>
+                    <td>@user.Name</td>
+                    <td>@user.Email</td>
+                    <td>@user.ProfileType</td>
+                    <td>
+                        <a asp-controller="Message" asp-action="SendMessage" asp-route-userId="@user.Id">Visa CV</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
