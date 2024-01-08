@@ -28,6 +28,13 @@ public class AccountController : Controller
         // Skicka med användarlistan till vyn
         return View(availableUsers);
     }
+    
+    [HttpGet]
+    public IActionResult VisaCV(string userId)
+    {
+        // Dirigera till CVSidan med den valda användarens ID
+        return RedirectToAction("UserCV", new { id = userId });
+    }
 
     [HttpPost]
     public async Task<IActionResult> Rega(RegisterViewModel model)
@@ -331,6 +338,7 @@ public class AccountController : Controller
 
         return View(model);
     }
+
 
 
 
