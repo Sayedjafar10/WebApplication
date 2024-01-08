@@ -60,6 +60,18 @@ namespace WebApplication2.Controllers
             return View(projectsToShow);
         }
 
+        public IActionResult GaMedProjekt(string userId, int projectId) 
+        {
+            var userParticipation = new UserParticipationProject
+            {
+                UserID = userId,
+                ProjectID = projectId
+            };
+            _cvContext.UserParticipationProjects.Add(userParticipation);
+            _cvContext.SaveChanges();
+            return RedirectToAction("VaraProjekt"); 
+        }
+
 
         // Retunerar SkapaProjekt vyn med skapandet av en ny produkt där model i vyn har objekt typen projekt
         public IActionResult SkapaProjekt()
