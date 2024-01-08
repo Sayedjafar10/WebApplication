@@ -303,15 +303,32 @@ $(document).ready(function(){
 							<td>@ViewBag.CreatorNamn</td>
 							<td>@projekt.Creator.Name</td>
 							<td>
+								
+									
+								
 								@if (projekt.CreatorID == ViewBag.CurrentUser)
 								{
 									<a href="#editProjectModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 									<a href="#deleteEmployeeModal" class="delete" data-toggle="modal" data-id="@projekt.Id" data-namn="@projekt.Namn"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 								}
 							</td>
-							<td>
-									<a asp-action="VaraProjekt" class="btn btn-outline-success mt-2" role="button">GÅ MED</a>
-							</td>
+								@{
+									bool isParticipant = false;
+								}
+							@foreach(var userParticipationProject in projekt.UsersParticipationsProjects)
+							{
+								if(userParticipationProject.UserID == ViewBag.CurrentUser)
+								{
+										isParticipant = true;
+										break;
+								}		
+							}
+							@if (projekt.CreatorID != ViewBag.CurrentUser && User.Identity.IsAuthenticated && !isParticipant)
+							{
+								<td>
+										<a asp-action="GaMedProjekt" asp-route-userId="@ViewBag.CurrentUser" asp-route-projectId="@projekt.Id" class="btn btn-outline-success mt-2" role="button">GÅ MED</a>
+								</td>
+							}
 						</tr>
 					}
 				</tbody>
