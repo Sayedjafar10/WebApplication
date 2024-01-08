@@ -20,6 +20,39 @@ public class AccountController : Controller
         _signInManager = signInManager;
         _cvContext = cvContext;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public IActionResult HittaCV()
     {
         // Hämta en lista över tillgängliga användare från databasen
@@ -43,7 +76,7 @@ public class AccountController : Controller
                 ProfilePictureUrl = "defaultProfilePicUrl.jpg" // Lägg till standard URL här
             };
 
-            
+
 
             var result = await _userManager.CreateAsync(user, model.Password);
 
@@ -69,19 +102,19 @@ public class AccountController : Controller
     }
 
 
-    public IActionResult UserCV(string id) 
+    public IActionResult UserCV(string id)
     {
         ViewBag.CurrentUser = _userManager.GetUserId(User);
-        if (id.IsNullOrEmpty()) 
+        if (id.IsNullOrEmpty())
         {
             //Används när du klickar Mitt CV
             return View(targetCV(_userManager.GetUserId(User)));
         }
         //Används när du klickar ett cv i listan över cvn
-        return View(targetCV(id)); 
+        return View(targetCV(id));
     }
-    
-    private CV targetCV(string id) 
+
+    private CV targetCV(string id)
     {
         var cvs = _cvContext.CVs.ToList();
         CV myCV = new CV();
@@ -334,10 +367,35 @@ public class AccountController : Controller
 
 
 
+    [HttpGet]
+    public IActionResult Upload()
+    {
+        var files = _cvContext.UploadedFiles.ToList();
+        return View(files); // Visa alla uppladdade filer
+    }
 
+    [HttpPost]
+    public async Task<IActionResult> Upload(IFormFile file)
+    {
+        if (file != null && file.Length > 0)
+        {
+            var fileName = Path.GetFileName(file.FileName);
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", fileName);
 
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
 
+            var uploadedFile = new UploadedFile { FileName = fileName };
+            _cvContext.UploadedFiles.Add(uploadedFile);
+            await _cvContext.SaveChangesAsync();
 
+            return RedirectToAction("Upload"); // Omdirigera för att undvika dubbel postning
+        }
+
+        return View();
+    }
 
 
 }
