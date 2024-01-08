@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.EntityFrameworkCore;
 using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
@@ -18,11 +18,31 @@ namespace WebApplication2.Controllers
             _userManager = userManager;
         }
 
+
         public IActionResult Index()
         {
-            //var cvs = _cvService.GetAllCVs();
+            try
+            {
+                Project senasteProjekt = _cvContext.Projekts.OrderByDescending(p => p.StartTime).FirstOrDefault();
+                ViewBag.SenasteProjekt = senasteProjekt ?? new Project { Namn = "Det finns inga projekt" };
+            }
+            catch (Exception ex)
+            {
+                ViewBag.SenasteProjekt = new Project { Namn = "Det finns inga projekt" };
+            }
+
+            List<User> offentligaAnvandare = _userManager.Users
+                .Where(u => u.ProfileType == ProfileType.Public)
+                .Take(3)
+                .ToList();
+
+            ViewBag.OffentligaAnvandare = offentligaAnvandare;
+
             return View();
         }
+
+
+
         [Authorize]
         public IActionResult VaraCV()
         {
