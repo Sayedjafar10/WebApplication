@@ -3,6 +3,7 @@
 <div asp-validation-summary="All" class="text-danger"></div>
 
 <form asp-action="RedigeraProjekt" method="post">
+    <input asp-for="Id" type="number" class="form-control" value="@Model.Id" hidden/>
 
     <!-- Projekt namnet-->
     <div>
