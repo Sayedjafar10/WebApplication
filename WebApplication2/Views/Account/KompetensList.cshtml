@@ -1,0 +1,11 @@
+﻿@model IEnumerable<Kompetens>
+
+<h2>Kompetenslista</h2>
+
+@foreach (var kompetens in Model)
+{
+    <p>
+        @kompetens.Titel
+        <a asp-action="EditKompetens" asp-controller="Account" asp-route-id="@kompetens.Id">Redigera</a>
+    </p>
+}

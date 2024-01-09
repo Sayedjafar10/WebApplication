@@ -445,4 +445,50 @@ public class AccountController : Controller
         return View("Error"); // eller visa lämpligt felmeddelande
     }
 
+
+    public IActionResult KompetensList()
+    {
+        var kompetenser = _cvContext.Kompetenser.ToList();
+        return View(kompetenser);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    [HttpPost]
+    public async Task<IActionResult> EditKompetens(Kompetens model)
+    {
+        var kompetens = await _cvContext.Kompetenser.FindAsync(model.Id);
+        if (kompetens != null)
+        {
+            kompetens.Titel = model.Titel;
+            kompetens.Beskrivning = model.Beskrivning;
+            _cvContext.Update(kompetens);
+            await _cvContext.SaveChangesAsync();
+            return RedirectToAction("KompetensList"); // Namnet på vyn där du listar alla kompetenser
+        }
+        else
+        {
+            return NotFound();
+        }
+    }
+
+    public IActionResult EditKompetens(int id)
+    {
+        var kompetens = _cvContext.Kompetenser.FirstOrDefault(k => k.Id == id);
+        if (kompetens == null)
+        {
+            return NotFound();
+        }
+        return View(kompetens);
+    }
 }
