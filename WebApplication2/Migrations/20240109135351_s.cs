@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebApplication2.Migrations
 {
     /// <inheritdoc />
-    public partial class d : Migration
+    public partial class s : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -343,6 +343,26 @@ namespace WebApplication2.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CVImages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CVId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CVImages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CVImages_CVs_CVId",
+                        column: x => x.CVId,
+                        principalTable: "CVs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CVKompetenser",
                 columns: table => new
                 {
@@ -419,8 +439,8 @@ namespace WebApplication2.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePictureUrl", "ProfileType", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "1", 0, "f25cf4b3-e509-4a6b-84a3-5292cac49033", "testuser1@example.com", false, false, null, "Test User 1", "TESTUSER1@EXAMPLE.COM", "TESTUSER1", "AQAAAAIAAYagAAAAEFRFnNZXDn+mlTzNI4mKpNEX2NLKtKfri6M2+1hfURCsoacTE3NrQrOIJ5wbOuciwQ==", null, false, "url1", 1, "81424ec7-4a2e-4761-bc82-ed6acb8e1440", false, "testuser1@example.com" },
-                    { "2", 0, "1df78e7e-cc5a-4c36-9697-285d123eeb83", "testuser2@example.com", false, false, null, "Test User 2", "TESTUSER2@EXAMPLE.COM", "TESTUSER2", "AQAAAAIAAYagAAAAEJZZuFQCgd84MnFZXN0MFNwXCtxDsVkZFQS15XFXQBvh8pfZBwbKeoebZjirznIFiA==", null, false, "url2", 0, "546f2d20-7d45-41c1-9670-09981866a9ba", false, "testuser2" }
+                    { "1", 0, "266ce1be-a713-468f-9d55-1f9816f466d7", "testuser1@example.com", false, false, null, "Test User 1", "TESTUSER1@EXAMPLE.COM", "TESTUSER1", "AQAAAAIAAYagAAAAEB/wK8FcXVkExiMPiSmNic0OFVyQChzNy8etaZU/CWHJ0grW5rTxWuGMbIOSTSm08A==", null, false, "url1", 1, "128cc728-846a-4294-894b-3701ef36855c", false, "testuser1@example.com" },
+                    { "2", 0, "4cda90a6-5ba4-4a5f-bb35-1a408c5a2488", "testuser2@example.com", false, false, null, "Test User 2", "TESTUSER2@EXAMPLE.COM", "TESTUSER2", "AQAAAAIAAYagAAAAEF6lR7SX9RyTPHtqF962bPivgnTtwvG+5tzNrHiaH2XnVo0JAtQ1VHZt0U5OKChw1A==", null, false, "url2", 0, "f9301141-b366-4dda-a218-cf7546fd2b2c", false, "testuser2" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -465,6 +485,11 @@ namespace WebApplication2.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_CVErfarenheter_CVId",
                 table: "CVErfarenheter",
+                column: "CVId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CVImages_CVId",
+                table: "CVImages",
                 column: "CVId");
 
             migrationBuilder.CreateIndex(
@@ -523,6 +548,9 @@ namespace WebApplication2.Migrations
 
             migrationBuilder.DropTable(
                 name: "CVErfarenheter");
+
+            migrationBuilder.DropTable(
+                name: "CVImages");
 
             migrationBuilder.DropTable(
                 name: "CVKompetenser");

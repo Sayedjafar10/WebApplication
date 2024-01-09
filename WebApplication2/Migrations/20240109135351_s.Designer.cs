@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WebApplication2.Migrations
 {
     [DbContext(typeof(CVContext))]
-    [Migration("20240108185710_d")]
-    partial class d
+    [Migration("20240109135351_s")]
+    partial class s
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -262,18 +262,18 @@ namespace WebApplication2.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f25cf4b3-e509-4a6b-84a3-5292cac49033",
+                            ConcurrencyStamp = "266ce1be-a713-468f-9d55-1f9816f466d7",
                             Email = "testuser1@example.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             Name = "Test User 1",
                             NormalizedEmail = "TESTUSER1@EXAMPLE.COM",
                             NormalizedUserName = "TESTUSER1",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFRFnNZXDn+mlTzNI4mKpNEX2NLKtKfri6M2+1hfURCsoacTE3NrQrOIJ5wbOuciwQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEB/wK8FcXVkExiMPiSmNic0OFVyQChzNy8etaZU/CWHJ0grW5rTxWuGMbIOSTSm08A==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "url1",
                             ProfileType = 1,
-                            SecurityStamp = "81424ec7-4a2e-4761-bc82-ed6acb8e1440",
+                            SecurityStamp = "128cc728-846a-4294-894b-3701ef36855c",
                             TwoFactorEnabled = false,
                             UserName = "testuser1@example.com"
                         },
@@ -281,18 +281,18 @@ namespace WebApplication2.Migrations
                         {
                             Id = "2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1df78e7e-cc5a-4c36-9697-285d123eeb83",
+                            ConcurrencyStamp = "4cda90a6-5ba4-4a5f-bb35-1a408c5a2488",
                             Email = "testuser2@example.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             Name = "Test User 2",
                             NormalizedEmail = "TESTUSER2@EXAMPLE.COM",
                             NormalizedUserName = "TESTUSER2",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJZZuFQCgd84MnFZXN0MFNwXCtxDsVkZFQS15XFXQBvh8pfZBwbKeoebZjirznIFiA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEF6lR7SX9RyTPHtqF962bPivgnTtwvG+5tzNrHiaH2XnVo0JAtQ1VHZt0U5OKChw1A==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "url2",
                             ProfileType = 0,
-                            SecurityStamp = "546f2d20-7d45-41c1-9670-09981866a9ba",
+                            SecurityStamp = "f9301141-b366-4dda-a218-cf7546fd2b2c",
                             TwoFactorEnabled = false,
                             UserName = "testuser2"
                         });
@@ -556,6 +556,29 @@ namespace WebApplication2.Migrations
                     b.ToTable("Utbildningar");
                 });
 
+            modelBuilder.Entity("WebApplication2.Models.WebApplication2.Models.CVImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CVId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CVId");
+
+                    b.ToTable("CVImages");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -720,6 +743,17 @@ namespace WebApplication2.Migrations
                     b.Navigation("Project");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WebApplication2.Models.WebApplication2.Models.CVImage", b =>
+                {
+                    b.HasOne("WebApplication2.Models.CV", "CV")
+                        .WithMany()
+                        .HasForeignKey("CVId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CV");
                 });
 
             modelBuilder.Entity("Kompetens", b =>

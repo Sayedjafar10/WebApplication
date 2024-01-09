@@ -116,3 +116,40 @@
         </ul>
     </div>
 </div>
+<style>
+    .cv-image-container {
+        max-width: 150px; /* Anpassa storleken efter behov */
+        margin-bottom: 15px;
+    }
+
+        .cv-image-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+</style>
+
+@if (ViewBag.CurrentUser == Model.UserId)
+{
+    <h4>Ladda upp en bild till ditt CV</h4>
+    <form asp-controller="Account" asp-action="UploadCVImage" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*" class="form-control mb-2" />
+        <input type="hidden" name="cvId" value="@Model.Id" />
+        <button type="submit" class="btn btn-primary">Ladda upp</button>
+    </form>
+
+    <div class="d-flex flex-wrap">
+        @foreach (var image in Model.CVImages)
+        {
+            <div class="cv-image-container">
+                <img src="/cvuploads/@image.FileName" alt="CV Image" class="img-fluid" />
+                <form asp-controller="Account" asp-action="DeleteCVImage" method="post">
+                    <input type="hidden" name="id" value="@image.Id" />
+                    <button type="submit" class="btn btn-danger btn-sm mt-2" onclick="return confirm('Är du säker på att du vill ta bort bilden?');">Ta bort Bild</button>
+                </form>
+            </div>
+        }
+    </div>
+}
+

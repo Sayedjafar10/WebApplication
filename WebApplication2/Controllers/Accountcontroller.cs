@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2.Models;
 using Microsoft.IdentityModel.Tokens;
+using WebApplication2.Models.WebApplication2.Models;
 
 public class AccountController : Controller
 {
@@ -421,5 +422,66 @@ public class AccountController : Controller
         return RedirectToAction("Upload");
     }
 
+
+
+
+
+
+
+
+
+    [HttpPost]
+    public async Task<IActionResult> UploadCVImage(IFormFile file, string cvId)
+    {
+        if (file != null && file.Length > 0)
+        {
+            var fileName = Path.GetFileName(file.FileName);
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/cvuploads", fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            // Antag att du har en entitet som heter CVImage eller liknande
+            var cvImage = new CVImage
+            {
+                FileName = fileName,
+                CVId = cvId
+            };
+            _cvContext.CVImages.Add(cvImage);
+            await _cvContext.SaveChangesAsync();
+
+            // Omdirigera användaren tillbaka till CV-sidan eller hantera uppladdningen som behövs
+            return RedirectToAction("UserCV");
+        }
+
+        return View("Error"); // eller hantera fel på ett lämpligt sätt
+    }
+
+
+    [HttpPost]
+    public async Task<IActionResult> DeleteCVImage(int id)
+    {
+        var cvImage = await _cvContext.CVImages.FindAsync(id);
+        if (cvImage != null)
+        {
+            // Ta bort filen från servern
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/cvuploads", cvImage.FileName);
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
+
+            // Ta bort objektet från databasen
+            _cvContext.CVImages.Remove(cvImage);
+            await _cvContext.SaveChangesAsync();
+
+            // Omdirigera användaren, anpassa efter ditt flöde
+            return RedirectToAction("UserCV"); // eller återgå till lämplig sida
+        }
+
+        return View("Error"); // eller visa lämpligt felmeddelande
+    }
 
 }

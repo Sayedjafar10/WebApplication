@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using WebApplication2.Models.WebApplication2.Models;
 
 namespace WebApplication2.Models
 {
@@ -15,7 +16,7 @@ namespace WebApplication2.Models
 
         //[ForeignKey(nameof(Projekt.Id))]
         //public virtual Projekt Projekt { get; set; }  //Navigation property, ska försöka konvertera ProjektID till ProjektNamn på projekt senare.  
-
+        public virtual ICollection<CVImage> CVImages { get; set; }
 
         public string UserId { get; set; }
         [ForeignKey(nameof(UserId))]
