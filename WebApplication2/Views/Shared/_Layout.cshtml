@@ -48,6 +48,8 @@
                                 </ul>
                             </div>
                         }
+                        @if (!User.Identity.IsAuthenticated)
+                        {
                         <ul class="navbar-nav flex-grow-1">
                             <!-- Befintliga länkar -->
                             <li class="nav-item">
@@ -55,7 +57,7 @@
                             </li>
                             <!-- Övriga länkar -->
                         </ul>
-
+                        }
 
                         <!-- Visa dessa länkar endast om användaren är inloggad -->
                         @if (User.Identity.IsAuthenticated)
