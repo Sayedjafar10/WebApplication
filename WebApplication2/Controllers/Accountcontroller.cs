@@ -21,39 +21,6 @@ public class AccountController : Controller
         _signInManager = signInManager;
         _cvContext = cvContext;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public IActionResult HittaCV()
     {
         // Hämta en lista över tillgängliga användare från databasen
@@ -61,6 +28,12 @@ public class AccountController : Controller
 
         // Skicka med användarlistan till vyn
         return View(availableUsers);
+    }
+    [HttpGet]
+    public IActionResult VisaCV(string userId)
+    {
+        // Dirigera till CVSidan med den valda användarens ID
+        return RedirectToAction("UserCV", new { id = userId });
     }
 
     [HttpPost]
@@ -129,14 +102,6 @@ public class AccountController : Controller
         }
         return myCV;
     }
-
-
-
-
-
-
-
-
 
     [HttpGet]
     public IActionResult Register()
@@ -290,10 +255,6 @@ public class AccountController : Controller
 
         return View("~/Views/Message/Users.cshtml", searchResults);
     }
-
-
-
-
 
 
     [HttpGet]
