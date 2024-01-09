@@ -398,4 +398,28 @@ public class AccountController : Controller
     }
 
 
+
+
+
+
+    [HttpPost]
+    public async Task<IActionResult> DeleteFile(int fileId)
+    {
+        var fileToDelete = await _cvContext.UploadedFiles.FindAsync(fileId);
+        if (fileToDelete != null)
+        {
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", fileToDelete.FileName);
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
+
+            _cvContext.UploadedFiles.Remove(fileToDelete);
+            await _cvContext.SaveChangesAsync();
+        }
+
+        return RedirectToAction("Upload");
+    }
+
+
 }
