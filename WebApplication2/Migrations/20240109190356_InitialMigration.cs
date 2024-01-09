@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebApplication2.Migrations
 {
     /// <inheritdoc />
-    public partial class d : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -419,8 +419,8 @@ namespace WebApplication2.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePictureUrl", "ProfileType", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "1", 0, "f25cf4b3-e509-4a6b-84a3-5292cac49033", "testuser1@example.com", false, false, null, "Test User 1", "TESTUSER1@EXAMPLE.COM", "TESTUSER1", "AQAAAAIAAYagAAAAEFRFnNZXDn+mlTzNI4mKpNEX2NLKtKfri6M2+1hfURCsoacTE3NrQrOIJ5wbOuciwQ==", null, false, "url1", 1, "81424ec7-4a2e-4761-bc82-ed6acb8e1440", false, "testuser1@example.com" },
-                    { "2", 0, "1df78e7e-cc5a-4c36-9697-285d123eeb83", "testuser2@example.com", false, false, null, "Test User 2", "TESTUSER2@EXAMPLE.COM", "TESTUSER2", "AQAAAAIAAYagAAAAEJZZuFQCgd84MnFZXN0MFNwXCtxDsVkZFQS15XFXQBvh8pfZBwbKeoebZjirznIFiA==", null, false, "url2", 0, "546f2d20-7d45-41c1-9670-09981866a9ba", false, "testuser2" }
+                    { "1", 0, "cdc63836-4f85-4716-97a2-69c8360b77f2", "testuser1@example.com", false, false, null, "Test User 1", "TESTUSER1@EXAMPLE.COM", "TESTUSER1", "AQAAAAIAAYagAAAAEIgPe86M84WeVNnnF06WSA6mdRerGSWL0hlFgnej/O96oclbSQXDmh1igD1Ef2rvlg==", null, false, "url1", 1, "86b3d654-ec3e-48d5-8797-41d236496271", false, "testuser1@example.com" },
+                    { "2", 0, "11c27365-fe30-4283-83e2-199252397201", "testuser2@example.com", false, false, null, "Test User 2", "TESTUSER2@EXAMPLE.COM", "TESTUSER2", "AQAAAAIAAYagAAAAED0ZdPyFXrP1R+Tr/oQ93ObbclOE9UXKfV7j2mdKjrQJnEm/uc2x1DqVApmmb4EZGw==", null, false, "url2", 0, "a70ebf48-07cb-43bb-bc69-839b0745dc5c", false, "testuser2" }
                 });
 
             migrationBuilder.CreateIndex(
