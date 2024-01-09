@@ -126,39 +126,50 @@ namespace WebApplication2.Controllers
 
         }
 
-		[HttpPost]
-		public IActionResult DeleteProjekt(int id)
-		{
-			var projekt = _cvContext.Projekts.Find(id);
+        [HttpGet]
+        public IActionResult RedigeraProjekt(int projektid)
+        {
+            var projekt = _cvContext.Projekts.SingleOrDefault(x => x.Id == projektid);
+            return View(projekt);
 
-			if (projekt != null)
-			{
-				_cvContext.Projekts.Remove(projekt);
-				_cvContext.SaveChanges();
-				ViewBag.Meddelande = "Projektet har raderats.";
-			}
-			else
-			{
-				ViewBag.Meddelande = "Projektet hittades inte.";
-			}
-
-			var cvs = _cvContext.Projekts.ToList();
-			return View("VaraProjekt", cvs);
-		}
+        }
 
 
+        [HttpPost]
+        public IActionResult RedigeraProjekt(Project model)
+        {
+            if (ModelState.IsValid)
+            {
+                var existingProjekt = _cvContext.Projekts.SingleOrDefault(x => x.Id == model.Id);
 
+                if (existingProjekt != null)
+                {
+                    // Uppdatera projektet med de nya värdena
+                    existingProjekt.Namn = model.Namn;
+                    existingProjekt.Beskrivning = model.Beskrivning;
+                    existingProjekt.StartTime = model.StartTime;
+                    existingProjekt.EndTime = model.EndTime;
 
+                    // Uppdatera Databasen
+                    _cvContext.Projekts.Update(existingProjekt);
+                    // Spara ändringarna i databasen
+                    _cvContext.SaveChanges();
 
+                    
+                    return RedirectToAction("VaraProjekt"); 
+                }
+            }
+            return View(model);
+        }
 
-		//[HttpPost]
-		//public IActionResult Add(CV cv)
-		//{
-		//    _cvService.AddCV(cv);
-		//    return RedirectToAction("Index");
-		//}
+        //[HttpPost]
+        //public IActionResult Add(CV cv)
+        //{
+        //    _cvService.AddCV(cv);
+        //    return RedirectToAction("Index");
+        //}
 
-		// Metoder för att redigera och ta bort CV kan läggas till här
-	} 
+        // Metoder för att redigera och ta bort CV kan läggas till här
+    } 
 }
 
