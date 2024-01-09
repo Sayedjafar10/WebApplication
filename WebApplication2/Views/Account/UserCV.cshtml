@@ -4,6 +4,10 @@
     <a class="btn btn-outline-success" asp-controller="Message" asp-action="Conversation" asp-route-id="@Model.UserId">
         <i class="fas fa-envelope"></i> Starta Chatt
     </a>
+    <a asp-controller="Account" asp-action="KompetensList" class="btn btn-primary">Visa Kompetenslista</a>
+    <a asp-controller="Account" asp-action="ErfarenhetLista" class="btn btn-secondary">Visa Erfarenhetslista</a>
+    <a asp-controller="Account" asp-action="UtbildningLista" class="btn btn-success">Visa Utbildningslista</a>
+
 </div>
 <!--Hela CVt-->
 <div>
@@ -12,6 +16,10 @@
         <h2>@Model.User.Name</h2>
         <h2>@Model.User.Email</h2>
     </div>
+
+
+  
+
     <!--Kompetens-->
     <div>
         <ul>
@@ -153,5 +161,4 @@
     </div>
 }
 
-<a asp-controller="Account" asp-action="KompetensList">Visa Kompetenslista</a>
 

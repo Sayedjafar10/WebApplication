@@ -457,13 +457,37 @@ public class AccountController : Controller
 
 
 
+    public IActionResult ErfarenhetLista()
+    {
+        var erfarenheter = _cvContext.Erfarenheter.ToList();
+        return View(erfarenheter);
+    }
 
 
 
 
 
+    public IActionResult EditKompetens(int id)
+    {
+        var kompetens = _cvContext.Kompetenser.FirstOrDefault(k => k.Id == id);
+        if (kompetens == null)
+        {
+            return NotFound();
+        }
+        return View(kompetens);
+    }
 
 
+
+    public IActionResult EditErfarenhet(int id)
+    {
+        var erfarenhet = _cvContext.Erfarenheter.FirstOrDefault(e => e.Id == id);
+        if (erfarenhet == null)
+        {
+            return NotFound();
+        }
+        return View(erfarenhet);
+    }
     [HttpPost]
     public async Task<IActionResult> EditKompetens(Kompetens model)
     {
@@ -476,19 +500,64 @@ public class AccountController : Controller
             await _cvContext.SaveChangesAsync();
             return RedirectToAction("KompetensList"); // Namnet på vyn där du listar alla kompetenser
         }
-        else
-        {
-            return NotFound();
-        }
+        return View(model);
     }
 
-    public IActionResult EditKompetens(int id)
+    
+   
+    [HttpPost]
+    public async Task<IActionResult> EditErfarenhet(Erfarenhet model)
     {
-        var kompetens = _cvContext.Kompetenser.FirstOrDefault(k => k.Id == id);
-        if (kompetens == null)
+        var erfarenhet = await _cvContext.Erfarenheter.FindAsync(model.Id);
+        if (erfarenhet != null)
+        {
+            erfarenhet.Title = model.Title;
+            erfarenhet.Beskrivning = model.Beskrivning;
+            _cvContext.Update(erfarenhet);
+            await _cvContext.SaveChangesAsync();
+            return RedirectToAction("ErfarenhetLista");
+        }
+        return View(model);
+    }
+
+
+    public IActionResult UtbildningLista()
+    {
+        var utbildningar = _cvContext.Utbildningar.ToList();
+        return View(utbildningar);
+    }
+
+    public IActionResult EditUtbildning(int id)
+    {
+        var utbildning = _cvContext.Utbildningar.FirstOrDefault(u => u.Id == id);
+        if (utbildning == null)
         {
             return NotFound();
         }
-        return View(kompetens);
+        return View(utbildning);
     }
+    [HttpPost]
+    public async Task<IActionResult> EditUtbildning(Utbildning model)
+    {
+        var utbildning = await _cvContext.Utbildningar.FindAsync(model.Id);
+        if (utbildning != null)
+        {
+            utbildning.Namn = model.Namn;
+            utbildning.Beskrivning = model.Beskrivning;
+            _cvContext.Update(utbildning);
+            await _cvContext.SaveChangesAsync();
+            return RedirectToAction("UtbildningLista");
+        }
+        return View(model);
+    }
+
+
+
+
+
+
+
+
+
+
 }

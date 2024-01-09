@@ -2,10 +2,18 @@
 
 <h2>Kompetenslista</h2>
 
-@foreach (var kompetens in Model)
-{
-    <p>
-        @kompetens.Titel
-        <a asp-action="EditKompetens" asp-controller="Account" asp-route-id="@kompetens.Id">Redigera</a>
-    </p>
-}
+<table>
+    <tr>
+        <th>Titel</th>
+        <th>Beskrivning</th>
+        <th></th>
+    </tr>
+    @foreach (var kompetens in Model)
+    {
+        <tr>
+            <td>@kompetens.Titel</td>
+            <td>@kompetens.Beskrivning</td>
+            <td><a asp-action="EditKompetens" asp-route-id="@kompetens.Id">Redigera</a></td>
+        </tr>
+    }
+</table>
