@@ -286,11 +286,7 @@ $(document).ready(function(){
 						<th>Projekt beskrivning</th>
 						<th>Startdatum</th>
 						<th>Slutdatum</th>
-						<th>Deltagare</th>
 						<th>Skapare</th>
-						<th>Actions</th>
-						<th>Gå med i projekt</th>
-
 					</tr>
 				</thead>
 				<tbody>
@@ -300,18 +296,7 @@ $(document).ready(function(){
 							<td>@projekt.Beskrivning</td>
 							<td>@projekt.StartTime.ToString("yyyy-MM-dd")</td>
 							<td>@projekt.EndTime.ToString("yyyy-MM-dd")</td>
-							<td>@ViewBag.CreatorNamn</td>
 							<td>@projekt.Creator.Name</td>
-							<td>
-								
-									
-								
-								@if (projekt.CreatorID == ViewBag.CurrentUser)
-								{
-									<a href="#editProjectModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-									<a href="#deleteEmployeeModal" class="delete" data-toggle="modal" data-id="@projekt.Id" data-namn="@projekt.Namn"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-								}
-							</td>
 								@{
 									bool isParticipant = false;
 								}
@@ -329,45 +314,23 @@ $(document).ready(function(){
 										<a asp-action="GaMedProjekt" asp-route-userId="@ViewBag.CurrentUser" asp-route-projectId="@projekt.Id" class="btn btn-outline-success mt-2" role="button">GÅ MED</a>
 								</td>
 							}
+
+								@if (projekt.CreatorID == ViewBag.CurrentUser)
+								{
+									<td>
+
+										<a asp-action="RedigeraProjekt" asp-route-projektid="@projekt.Id" class="btn btn-outline-success mt-2" role="button">Redigera projekt</a>
+
+									</td>
+								}
+								
 						</tr>
 					}
+						<a asp-action="SkapaProjekt" class="btn btn-outline-success mt-2" role="button">Lägg till projekt...</a>
 				</tbody>
 			</table>
 		</div>
 	</div>        
-</div>
-<!-- Bekräftelse för att ta bort -->
-	<div id="deleteConfirmationModal" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form id="deleteForm" method="post">
-					<div class="modal-header">
-						<h4 class="modal-title">Bekräfta borttagning</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">
-						<p>Är du säker på att du vill ta bort detta projekt?</p>
-					</div>
-					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Avbryt">
-						<input type="submit" class="btn btn-danger" value="Ta bort">
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-
-	<script>
-		$(document).ready(function () {
-			$('.delete').click(function () {
-				var id = $(this).data('id');
-				var namn = $(this).data('namn');
-				$('#deleteConfirmationModal').modal('show');
-				$('#deleteForm').attr('action', '/Home/DeleteProjekt/' + id);
-			});
-		});
-	</script>
-	<a asp-action="SkapaProjekt" class="btn btn-outline-success mt-2" role="button">Lägg till projekt...</a>
-	
+</div>	
 </body>
 </html>
