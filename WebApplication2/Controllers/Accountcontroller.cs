@@ -253,7 +253,7 @@ public class AccountController : Controller
 
         // Skicka sökresultaten till vyn
 
-        return View("~/Views/Message/Users.cshtml", searchResults);
+        return View("~/Views/Account/HittaCV.cshtml", searchResults);
     }
 
 

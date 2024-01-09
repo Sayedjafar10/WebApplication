@@ -94,6 +94,7 @@ namespace WebApplication2.Controllers
 
 
         // Retunerar SkapaProjekt vyn med skapandet av en ny produkt där model i vyn har objekt typen projekt
+        [Authorize]
         public IActionResult SkapaProjekt()
         {
             return View(new Project());
