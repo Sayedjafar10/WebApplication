@@ -13,23 +13,36 @@
     </div>
 </form>
 
-@if (Model.Any())
-{
-    <div class="row">
-        <h3>Uppladdade Bilder:</h3>
-        @foreach (var file in Model)
+@{
+    try
+    {
+        if (Model.Any())
         {
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <img src="/uploads/@file.FileName" class="card-img-top" alt="Uploaded Image" />
-                    <div class="card-body">
-                        <form asp-controller="Account" asp-action="DeleteFile" method="post" class="d-inline">
-                            <input type="hidden" name="fileId" value="@file.Id" />
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Är du säker på att du vill ta bort den här bilden?');">Ta bort</button>
-                        </form>
+            <div class="row">
+                <h3>Uppladdade Bilder:</h3>
+                @foreach (var file in Model)
+                {
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <img src="/uploads/@file.FileName" class="card-img-top" alt="Uploaded Image" />
+                            <div class="card-body">
+                                <form asp-controller="Account" asp-action="DeleteFile" method="post" class="d-inline">
+                                    <input type="hidden" name="fileId" value="@file.Id" />
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Är du säker på att du vill ta bort den här bilden?');">Ta bort</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                }
             </div>
         }
-    </div>
+    }
+    catch (Exception ex)
+    {
+        // Hantera exceptionen här, exempelvis logga den eller visa ett felmeddelande för användaren.
+        <p>
+            <span style="color: red;">Du måste trycka på välj fil och lägga till en bild innan du laddar upp en bild!</span>
+        </p>
+    }
+
 }
