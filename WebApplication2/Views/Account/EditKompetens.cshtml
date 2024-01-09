@@ -1,0 +1,21 @@
+﻿@model Kompetens
+
+@{
+    ViewData["Title"] = "Redigera Kompetens";
+}
+
+<h2>Redigera Kompetens</h2>
+
+<form asp-action="EditKompetens" asp-controller="Account" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="Titel">Kompetensens Titel</label>
+        <input type="text" asp-for="Titel" class="form-control">
+    </div>
+    <div class="form-group">
+        <label asp-for="Beskrivning">Beskrivning</label>
+        <textarea asp-for="Beskrivning" class="form-control"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Uppdatera</button>
+</form>
+

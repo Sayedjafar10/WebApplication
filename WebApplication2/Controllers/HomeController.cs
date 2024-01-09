@@ -18,11 +18,31 @@ namespace WebApplication2.Controllers
             _userManager = userManager;
         }
 
+
         public IActionResult Index()
         {
-            //var cvs = _cvService.GetAllCVs();
+            try
+            {
+                Project senasteProjekt = _cvContext.Projekts.OrderByDescending(p => p.StartTime).FirstOrDefault();
+                ViewBag.SenasteProjekt = senasteProjekt ?? new Project { Namn = "Det finns inga projekt" };
+            }
+            catch (Exception ex)
+            {
+                ViewBag.SenasteProjekt = new Project { Namn = "Det finns inga projekt" };
+            }
+
+            List<User> offentligaAnvandare = _userManager.Users
+                .Where(u => u.ProfileType == ProfileType.Public)
+                .Take(3)
+                .ToList();
+
+            ViewBag.OffentligaAnvandare = offentligaAnvandare;
+
             return View();
         }
+
+
+
         [Authorize]
         public IActionResult VaraCV()
         {
@@ -74,6 +94,7 @@ namespace WebApplication2.Controllers
 
 
         // Retunerar SkapaProjekt vyn med skapandet av en ny produkt där model i vyn har objekt typen projekt
+        [Authorize]
         public IActionResult SkapaProjekt()
         {
             return View(new Project());

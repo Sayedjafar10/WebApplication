@@ -48,14 +48,8 @@
                                 </ul>
                             </div>
                         }
-                        <ul class="navbar-nav flex-grow-1">
-                            <!-- Befintliga länkar -->
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Upload">Profile Picture</a>
-                            </li>
-                            <!-- Övriga länkar -->
-                        </ul>
-
+                      
+                       
 
                         <!-- Visa dessa länkar endast om användaren är inloggad -->
                         @if (User.Identity.IsAuthenticated)
@@ -85,25 +79,7 @@
                     </ul>
                 </div>
             </div>
-             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                <div class="container-fluid">
-                    <!-- ... övriga delar av navigationsmenyn ... -->
-
-                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                        <ul class="navbar-nav flex-grow-1">
-                            <!-- ... andra länkar ... -->
-                            <!-- Visa dessa länkar endast om användaren är inloggad -->
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="ChangePassword">Ändra lösenord</a>
-                                </li>
-                                <!-- Lägg till andra länkar för inloggade användare här -->
-                            }
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+             
         </nav>
 
     </header>

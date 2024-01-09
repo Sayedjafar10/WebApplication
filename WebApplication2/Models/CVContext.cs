@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2.Models;
+using WebApplication2.Models.WebApplication2.Models;
 
 public class CVContext : IdentityDbContext<User>
 {
@@ -20,6 +21,8 @@ public class CVContext : IdentityDbContext<User>
     public DbSet<LoginViewModel> LoginModels { get; set; }
     public DbSet<RegisterViewModel> RegisterModels { get; set; }
     public DbSet<UploadedFile> UploadedFiles { get; set; }
+
+    public DbSet<CVImage> CVImages { get; set; }
 
     public DbSet<UserParticipationProject> UserParticipationProjects { get; set; }
 
