@@ -259,18 +259,18 @@ namespace WebApplication2.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cf3ad34d-a065-497d-8921-03ec6b4194d6",
+                            ConcurrencyStamp = "f25cf4b3-e509-4a6b-84a3-5292cac49033",
                             Email = "testuser1@example.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             Name = "Test User 1",
                             NormalizedEmail = "TESTUSER1@EXAMPLE.COM",
                             NormalizedUserName = "TESTUSER1",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAbz86DmwaNiMppH/9Z+tkcoC9BKdhmym58cNu94m07Xx/YSn+6V96AjoZC/QY0ktA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFRFnNZXDn+mlTzNI4mKpNEX2NLKtKfri6M2+1hfURCsoacTE3NrQrOIJ5wbOuciwQ==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "url1",
                             ProfileType = 1,
-                            SecurityStamp = "967e36f9-1976-42b0-b8c7-5a10f999bde8",
+                            SecurityStamp = "81424ec7-4a2e-4761-bc82-ed6acb8e1440",
                             TwoFactorEnabled = false,
                             UserName = "testuser1@example.com"
                         },
@@ -278,18 +278,18 @@ namespace WebApplication2.Migrations
                         {
                             Id = "2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "94a512c1-88f2-4924-bdd0-9b043a117666",
+                            ConcurrencyStamp = "1df78e7e-cc5a-4c36-9697-285d123eeb83",
                             Email = "testuser2@example.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             Name = "Test User 2",
                             NormalizedEmail = "TESTUSER2@EXAMPLE.COM",
                             NormalizedUserName = "TESTUSER2",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOuP6fXoxhXEV3GEr0iLZHyrjXgOkBaVhCA5ddt0mEAHnCV/MHGrtbeOevKY/BdjYQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJZZuFQCgd84MnFZXN0MFNwXCtxDsVkZFQS15XFXQBvh8pfZBwbKeoebZjirznIFiA==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "url2",
                             ProfileType = 0,
-                            SecurityStamp = "2288a80c-3d49-48de-828e-7efad36661dc",
+                            SecurityStamp = "546f2d20-7d45-41c1-9670-09981866a9ba",
                             TwoFactorEnabled = false,
                             UserName = "testuser2"
                         });
@@ -498,6 +498,23 @@ namespace WebApplication2.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("RegisterModels");
+                });
+
+            modelBuilder.Entity("WebApplication2.Models.UploadedFile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UploadedFiles");
                 });
 
             modelBuilder.Entity("WebApplication2.Models.UserParticipationProject", b =>

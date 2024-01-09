@@ -88,4 +88,31 @@
             </a>
         }
     </div>
+
+    <div>
+        <ul>
+            @foreach (var createdProject in Model.User.CreatedProjects)
+            {
+                <li>
+                    <div>
+                        <h3>@createdProject.Namn</h3>
+                        <p>@createdProject.Creator</p>
+                        <p>Från @createdProject.StartTime.ToString() till @createdProject.EndTime.ToString()</p>
+                        <p>@createdProject.Beskrivning</p>
+                    </div>
+                </li>
+            }
+            @foreach (var userParticipationProject in Model.User.UsersParticipationsProjects)
+            {
+                <li>
+                    <div>
+                        <h3>@userParticipationProject.Project.Namn</h3>
+                        <p>@userParticipationProject.Project.Creator</p>
+                        <p>Från @userParticipationProject.Project.StartTime.ToString() till @userParticipationProject.Project.EndTime.ToString()</p>
+                        <p>@userParticipationProject.Project.Beskrivning</p>
+                    </div>
+                </li>   
+            }
+        </ul>
+    </div>
 </div>

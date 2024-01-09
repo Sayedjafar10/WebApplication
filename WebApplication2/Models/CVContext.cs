@@ -19,6 +19,7 @@ public class CVContext : IdentityDbContext<User>
     public DbSet<Utbildning> Utbildningar { get; set; }
     public DbSet<LoginViewModel> LoginModels { get; set; }
     public DbSet<RegisterViewModel> RegisterModels { get; set; }
+    public DbSet<UploadedFile> UploadedFiles { get; set; }
 
     public DbSet<UserParticipationProject> UserParticipationProjects { get; set; }
 

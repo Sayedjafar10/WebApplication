@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebApplication2.Migrations
 {
     /// <inheritdoc />
-    public partial class addmigration : Migration
+    public partial class d : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -113,6 +113,19 @@ namespace WebApplication2.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RegisterModels", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UploadedFiles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UploadedFiles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -406,8 +419,8 @@ namespace WebApplication2.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePictureUrl", "ProfileType", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "1", 0, "cf3ad34d-a065-497d-8921-03ec6b4194d6", "testuser1@example.com", false, false, null, "Test User 1", "TESTUSER1@EXAMPLE.COM", "TESTUSER1", "AQAAAAIAAYagAAAAEAbz86DmwaNiMppH/9Z+tkcoC9BKdhmym58cNu94m07Xx/YSn+6V96AjoZC/QY0ktA==", null, false, "url1", 1, "967e36f9-1976-42b0-b8c7-5a10f999bde8", false, "testuser1@example.com" },
-                    { "2", 0, "94a512c1-88f2-4924-bdd0-9b043a117666", "testuser2@example.com", false, false, null, "Test User 2", "TESTUSER2@EXAMPLE.COM", "TESTUSER2", "AQAAAAIAAYagAAAAEOuP6fXoxhXEV3GEr0iLZHyrjXgOkBaVhCA5ddt0mEAHnCV/MHGrtbeOevKY/BdjYQ==", null, false, "url2", 0, "2288a80c-3d49-48de-828e-7efad36661dc", false, "testuser2" }
+                    { "1", 0, "f25cf4b3-e509-4a6b-84a3-5292cac49033", "testuser1@example.com", false, false, null, "Test User 1", "TESTUSER1@EXAMPLE.COM", "TESTUSER1", "AQAAAAIAAYagAAAAEFRFnNZXDn+mlTzNI4mKpNEX2NLKtKfri6M2+1hfURCsoacTE3NrQrOIJ5wbOuciwQ==", null, false, "url1", 1, "81424ec7-4a2e-4761-bc82-ed6acb8e1440", false, "testuser1@example.com" },
+                    { "2", 0, "1df78e7e-cc5a-4c36-9697-285d123eeb83", "testuser2@example.com", false, false, null, "Test User 2", "TESTUSER2@EXAMPLE.COM", "TESTUSER2", "AQAAAAIAAYagAAAAEJZZuFQCgd84MnFZXN0MFNwXCtxDsVkZFQS15XFXQBvh8pfZBwbKeoebZjirznIFiA==", null, false, "url2", 0, "546f2d20-7d45-41c1-9670-09981866a9ba", false, "testuser2" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -525,6 +538,9 @@ namespace WebApplication2.Migrations
 
             migrationBuilder.DropTable(
                 name: "RegisterModels");
+
+            migrationBuilder.DropTable(
+                name: "UploadedFiles");
 
             migrationBuilder.DropTable(
                 name: "UserParticipationProjects");

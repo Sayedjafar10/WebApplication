@@ -1,0 +1,23 @@
+﻿@model IEnumerable<UploadedFile>;
+
+@{
+    ViewData["Title"] = "Bilduppladdning";
+}
+
+<h2>Bilduppladdning</h2>
+
+<form asp-controller="Account" asp-action="Upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" accept="image/*" />
+    <button type="submit">Ladda upp Bild</button>
+</form>
+
+@if (Model.Any()) // Kontrollera om det finns några uppladdade filer
+{
+    <div>
+        <h3>Uppladdade Bilder:</h3>
+        @foreach(var file in Model)
+        {
+            <img src="/uploads/@file.FileName" alt="Uploaded Image" style="max-width: 100%; height: auto;" />
+        }
+    </div>
+}
