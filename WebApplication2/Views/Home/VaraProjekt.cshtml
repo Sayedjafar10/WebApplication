@@ -286,11 +286,7 @@ $(document).ready(function(){
 						<th>Projekt beskrivning</th>
 						<th>Startdatum</th>
 						<th>Slutdatum</th>
-						<th></th>
 						<th>Skapare</th>
-						<th></th>
-
-
 					</tr>
 				</thead>
 				<tbody>
@@ -300,7 +296,6 @@ $(document).ready(function(){
 							<td>@projekt.Beskrivning</td>
 							<td>@projekt.StartTime.ToString("yyyy-MM-dd")</td>
 							<td>@projekt.EndTime.ToString("yyyy-MM-dd")</td>
-							<td>@ViewBag.CreatorNamn</td>
 							<td>@projekt.Creator.Name</td>
 								@{
 									bool isParticipant = false;

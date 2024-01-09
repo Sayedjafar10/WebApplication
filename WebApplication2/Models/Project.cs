@@ -4,8 +4,8 @@
 
     namespace WebApplication2.Models
     {
-        public class Project
-        {
+        public class Project : IValidatableObject
+    {
 
             [Key]
             [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -26,6 +26,7 @@
             [Required(ErrorMessage = "Vänligen ange slutdatum")]
             [DataType(DataType.DateTime, ErrorMessage = "Fel format!")]
             [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+            
             public DateTime EndTime { get; set; }
             
             public virtual ICollection<UserParticipationProject> UsersParticipationsProjects { get; set; } = new List<UserParticipationProject>();
@@ -34,5 +35,13 @@
             [ForeignKey(nameof(CreatorID))]
             public virtual User? Creator { get; set; }
 
+        IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+        {
+            if (EndTime < StartTime)
+            {
+                yield return new ValidationResult("Slutdatumet måste vara efter startdatumet");
+            }
         }
+
+    }
     }

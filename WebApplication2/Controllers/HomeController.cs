@@ -129,6 +129,7 @@ namespace WebApplication2.Controllers
                     existingProjekt.StartTime = model.StartTime;
                     existingProjekt.EndTime = model.EndTime;
 
+                    // Uppdatera Databasen
                     _cvContext.Projekts.Update(existingProjekt);
                     // Spara ändringarna i databasen
                     _cvContext.SaveChanges();
