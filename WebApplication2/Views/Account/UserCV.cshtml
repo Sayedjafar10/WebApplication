@@ -1,9 +1,10 @@
 ﻿@model CV
 <!--MeddelandeKonversation-->
-<div>
-    <a asp-controller="Message" asp-action="Conversation" asp-route-id="@Model.UserId">Chat</a>
+<div class="text-right">
+    <a class="btn btn-outline-success" asp-controller="Message" asp-action="Conversation" asp-route-id="@Model.UserId">
+        <i class="fas fa-envelope"></i> Starta Chatt
+    </a>
 </div>
-
 <!--Hela CVt-->
 <div>
     <!--Användar info-->
@@ -29,7 +30,14 @@
         </ul>
         @if(ViewBag.CurrentUser == Model.UserId)
         {
-            <a href="/Account/AddKompetens">Lägg till Kompetens</a>
+            @if (ViewBag.CurrentUser == Model.UserId)
+            {
+                <a class="btn btn-outline-success" href="/Account/AddKompetens">
+                    <i class="fas fa-plus"></i> Lägg till Kompetens
+                </a>
+            }
+
+
         }
         
 
@@ -52,7 +60,9 @@
         </ul>
         @if (ViewBag.CurrentUser == Model.UserId)
         {
-            <a href="/Account/AddErfarenhet">Lägg till Erfarenhet</a>
+            <a class="btn btn-outline-success"
+            href="/Account/AddErfarenhet">Lägg till Erfarenhet
+            </a>
         }
     </div>
     <!--Utbildningar-->
@@ -73,7 +83,9 @@
         </ul>
         @if (ViewBag.CurrentUser == Model.UserId)
         {
-            <a href="/Account/AddUtbildning">Lägg till Utbildning</a>
+            <a class="btn btn-outline-success"
+                href="/Account/AddUtbildning">Lägg till Utbildning
+            </a>
         }
     </div>
 
