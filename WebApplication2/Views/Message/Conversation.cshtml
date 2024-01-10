@@ -6,9 +6,10 @@
    if(meddelande.ReceiverId == ViewBag.CVUser)
    {
      <li>
-                <h3>@(meddelande?.Sender?.Name)</h3>
-                <h3>@meddelande.Timestamp</h3>
+         <h3>@(meddelande?.Sender?.Name)</h3>
+         <h3>@meddelande.Timestamp</h3>
          <p>@meddelande.Content</p>
+         <button onclick="location.href='@Url.Action("MarkMessageAsRead", "Message", new { messageId = meddelande.MessageId })'">Markera som läst</button>
      </li>   
    }     
 }

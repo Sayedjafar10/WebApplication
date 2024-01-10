@@ -49,6 +49,25 @@ namespace WebApplication2.Controllers
             return View(availableUsers);
         }
 
+
+        // metod för att markera / uppdatera ett meddelandes "IsRead" status
+        public async Task<IActionResult> MarkMessageAsRead(int messageId)
+        {
+            var message = await _cvContext.Meddelanden.FirstOrDefaultAsync(m => m.MessageId == messageId);
+            if (message == null)
+            {
+                return NotFound();
+            }
+
+            message.IsRead = true;
+            _cvContext.Update(message);
+            await _cvContext.SaveChangesAsync();
+
+            return RedirectToAction("Index"); // Omdirigera till relevant view
+        }
+
+
+
         // GET: MessageController   
         public ActionResult Index()
         {
