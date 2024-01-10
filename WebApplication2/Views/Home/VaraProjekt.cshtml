@@ -281,12 +281,12 @@ $(document).ready(function(){
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
-						
 						<th>Projekt namn</th>
 						<th>Projekt beskrivning</th>
 						<th>Startdatum</th>
 						<th>Slutdatum</th>
 						<th>Skapare</th>
+						<th>Deltagare</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -300,14 +300,20 @@ $(document).ready(function(){
 								@{
 									bool isParticipant = false;
 								}
+							<td>
 							@foreach(var userParticipationProject in projekt.UsersParticipationsProjects)
 							{
 								if(userParticipationProject.UserID == ViewBag.CurrentUser)
 								{
 										isParticipant = true;
 										break;
-								}		
+								}
 							}
+							@foreach (var userParticipationProject in projekt.UsersParticipationsProjects)
+							{
+								<p>@userParticipationProject.User.Name</p>
+							}
+							</td>
 							@if (projekt.CreatorID != ViewBag.CurrentUser && User.Identity.IsAuthenticated && !isParticipant)
 							{
 								<td>
