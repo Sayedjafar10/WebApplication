@@ -20,9 +20,15 @@
             {
                 <tr>
                     <td>
-                        
-                            <img src="/cvuploads/default-png.png" alt="HTML5 Icon" style="width:128px;height:128px;">
-                       
+                        @if (cv.CVImages.Any()) 
+                        {
+                            var image = cv.CVImages.First(); // Hämta den första bilden
+                            <img src="@Url.Content("~/cvuploads/" + image.FileName)" alt="CV Bild" style="width:128px;height:128px;"> <!-- Visa den uppladdade bilden -->
+                        }
+                        else
+                        {
+                            <img src="@Url.Content("~/images/defaultProfilePicUrl.jpg")" alt="Standardbild" style="width:128px;height:128px;"> <!-- Visa standardbild om ingen profilbild finns -->
+                        }
                     </td>
                     <td><a asp-controller="Account" asp-action="UserCV" asp-route-id="@cv.UserId">@cv.User.Name</a></td>
                     <td>@cv.User.Email</td>
@@ -52,9 +58,3 @@
         </tbody>
     </table>
 </div>
-
-
-
-
-
-
