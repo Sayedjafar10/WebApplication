@@ -446,11 +446,9 @@ public class AccountController : Controller
     }
 
 
-    public IActionResult KompetensList()
-    {
-        var kompetenser = _cvContext.Kompetenser.ToList();
-        return View(kompetenser);
-    }
+   
+
+
 
 
 
@@ -459,11 +457,25 @@ public class AccountController : Controller
 
     public IActionResult ErfarenhetLista()
     {
-        var erfarenheter = _cvContext.Erfarenheter.ToList();
-        return View(erfarenheter);
+        // Hämta ID för den aktuellt inloggade användaren
+        var userId = _userManager.GetUserId(User);
+
+        // Hämta användarens CV
+        var userCV = _cvContext.CVs.Include(cv => cv.CVErfarenheter)
+                                   .ThenInclude(ce => ce.Erfarenhet)
+                                   .FirstOrDefault(cv => cv.UserId == userId);
+
+        if (userCV != null)
+        {
+            // Hämta lista av erfarenheter kopplade till användarens CV
+            var erfarenheter = userCV.CVErfarenheter.Select(ce => ce.Erfarenhet).ToList();
+
+            return View(erfarenheter);
+        }
+
+        // Om det inte finns något CV eller erfarenheter, skicka tillbaka en tom lista eller hantera det på lämpligt sätt
+        return View(new List<Erfarenhet>());
     }
-
-
 
 
 
@@ -475,6 +487,28 @@ public class AccountController : Controller
             return NotFound();
         }
         return View(kompetens);
+    }
+
+    public IActionResult KompetensList()
+    {
+        // Hämta ID för den aktuellt inloggade användaren
+        var userId = _userManager.GetUserId(User);
+
+        // Hämta användarens CV
+        var userCV = _cvContext.CVs.Include(cv => cv.CVKompetenser)
+                                   .ThenInclude(ck => ck.Kompetens)
+                                   .FirstOrDefault(cv => cv.UserId == userId);
+
+        if (userCV != null)
+        {
+            // Hämta lista av kompetenser kopplade till användarens CV
+            var kompetenser = userCV.CVKompetenser.Select(ck => ck.Kompetens).ToList();
+
+            return View(kompetenser);
+        }
+
+        // Om det inte finns något CV eller kompetenser, skicka tillbaka en tom lista eller hantera det på lämpligt sätt
+        return View(new List<Kompetens>());
     }
 
 
@@ -521,10 +555,28 @@ public class AccountController : Controller
     }
 
 
+   
+
     public IActionResult UtbildningLista()
     {
-        var utbildningar = _cvContext.Utbildningar.ToList();
-        return View(utbildningar);
+        
+        var userId = _userManager.GetUserId(User);
+
+        // Hämta användarens CV
+        var userCV = _cvContext.CVs.Include(cv => cv.CVUtbildningar)
+                                   .ThenInclude(cu => cu.Utbildning)
+                                   .FirstOrDefault(cv => cv.UserId == userId);
+
+        if (userCV != null)
+        {
+            // Hämta lista av utbildningar kopplade till användarens CV
+            var utbildningar = userCV.CVUtbildningar.Select(cu => cu.Utbildning).ToList();
+
+            return View(utbildningar);
+        }
+
+        // Om det inte finns något CV eller utbildningar, skicka tillbaka en tom lista eller hantera det på lämpligt sätt
+        return View(new List<Utbildning>());
     }
 
     public IActionResult EditUtbildning(int id)
