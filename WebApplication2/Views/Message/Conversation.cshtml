@@ -12,7 +12,7 @@
          @if (!meddelande.IsRead)
          {
              <form asp-controller="Message" asp-action="MarkAsRead" method="post">
-                 <input type="hidden" name="messageId" value="@meddelande.MessageID" />
+                 <input type="hidden" name="messageId" value="@meddelande.MessageId" />
                  <button type="submit" class="btn btn-sm btn-primary">Markera som läst</button>
              </form>
          }
