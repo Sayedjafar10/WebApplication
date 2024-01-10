@@ -61,7 +61,7 @@ namespace WebApplication2.Controllers
                 message.IsRead = true;
                 await _cvContext.SaveChangesAsync();
             }
-            return RedirectToAction("ViewMessages");
+            return RedirectToAction("Conversation", new {id = message.ReceiverId});
         }
 
 
