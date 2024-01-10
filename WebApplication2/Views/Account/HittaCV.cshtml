@@ -31,7 +31,8 @@
                     <td>@user.Email</td>
                     <td>@user.ProfileType</td>
                     <td>
-                        <a asp-controller="Account" asp-action="VisaCV" asp-route-userId="@user.Id">Visa CV</a>
+                        <a class="btn btn-outline-success mt-2" asp-controller="Account" asp-action="VisaCV" asp-route-userId="@user.Id">Visa CV</a>
+
                     </td>
                 </tr>
             }

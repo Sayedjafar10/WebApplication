@@ -6,9 +6,16 @@
    if(meddelande.ReceiverId == ViewBag.CVUser)
    {
      <li>
-                <h3>@(meddelande?.Sender?.Name)</h3>
-                <h3>@meddelande.Timestamp</h3>
+         <h3>@(meddelande?.Sender?.Name)</h3>
+         <h3>@meddelande.Timestamp</h3>
          <p>@meddelande.Content</p>
+         @if (!meddelande.IsRead)
+         {
+             <form asp-controller="Message" asp-action="MarkAsRead" method="post">
+                 <input type="hidden" name="messageId" value="@meddelande.MessageID" />
+                 <button type="submit" class="btn btn-sm btn-primary">Markera som läst</button>
+             </form>
+         }
      </li>   
    }     
 }

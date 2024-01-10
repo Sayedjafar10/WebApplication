@@ -49,6 +49,34 @@ namespace WebApplication2.Controllers
             return View(availableUsers);
         }
 
+
+
+        // metod för att markera / uppdatera ett meddelandes "IsRead" status
+        [HttpPost]
+        public async Task<IActionResult> MarkAsRead(int messageId)
+        {
+            var message = await _cvContext.Meddelanden.FindAsync(messageId);
+            if (message != null)
+            {
+                message.IsRead = true;
+                await _cvContext.SaveChangesAsync();
+            }
+            return RedirectToAction("ViewMessages");
+        }
+
+
+        // hämta ANTALET olästa meddelanden för den inloggade användaren
+
+        public async Task<int> GetUnreadMessageCount()
+        {
+            var userId = _userManager.GetUserId(User);
+            var unreadCount = await _cvContext.Meddelanden.CountAsync(m => m.ReceiverId == userId && !m.IsRead);
+            return unreadCount;
+        }
+
+
+
+
         // GET: MessageController   
         public ActionResult Index()
         {
