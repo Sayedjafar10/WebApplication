@@ -50,20 +50,18 @@ namespace WebApplication2.Controllers
         }
 
 
+
         // metod för att markera / uppdatera ett meddelandes "IsRead" status
-        public async Task<IActionResult> MarkMessageAsRead(int messageId)
+        [HttpPost]
+        public async Task<IActionResult> MarkAsRead(int messageId)
         {
-            var message = await _cvContext.Meddelanden.FirstOrDefaultAsync(m => m.MessageId == messageId);
-            if (message == null)
+            var message = await _cvContext.Meddelanden.FindAsync(messageId);
+            if (message != null)
             {
-                return NotFound();
+                message.IsRead = true;
+                await _cvContext.SaveChangesAsync();
             }
-
-            message.IsRead = true;
-            _cvContext.Update(message);
-            await _cvContext.SaveChangesAsync();
-
-            return RedirectToAction("Index"); // Omdirigera till relevant view
+            return RedirectToAction("ViewMessages");
         }
 
 
