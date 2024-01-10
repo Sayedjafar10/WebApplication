@@ -3,12 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace WebApplication2.Migrations
 {
     /// <inheritdoc />
-    public partial class s : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -276,6 +274,7 @@ namespace WebApplication2.Migrations
                     Timestamp = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsRead = table.Column<bool>(type: "bit", nullable: false),
                     SenderId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    SenderName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ReceiverId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -432,15 +431,6 @@ namespace WebApplication2.Migrations
                         principalTable: "Projekts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.InsertData(
-                table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePictureUrl", "ProfileType", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[,]
-                {
-                    { "1", 0, "266ce1be-a713-468f-9d55-1f9816f466d7", "testuser1@example.com", false, false, null, "Test User 1", "TESTUSER1@EXAMPLE.COM", "TESTUSER1", "AQAAAAIAAYagAAAAEB/wK8FcXVkExiMPiSmNic0OFVyQChzNy8etaZU/CWHJ0grW5rTxWuGMbIOSTSm08A==", null, false, "url1", 1, "128cc728-846a-4294-894b-3701ef36855c", false, "testuser1@example.com" },
-                    { "2", 0, "4cda90a6-5ba4-4a5f-bb35-1a408c5a2488", "testuser2@example.com", false, false, null, "Test User 2", "TESTUSER2@EXAMPLE.COM", "TESTUSER2", "AQAAAAIAAYagAAAAEF6lR7SX9RyTPHtqF962bPivgnTtwvG+5tzNrHiaH2XnVo0JAtQ1VHZt0U5OKChw1A==", null, false, "url2", 0, "f9301141-b366-4dda-a218-cf7546fd2b2c", false, "testuser2" }
                 });
 
             migrationBuilder.CreateIndex(

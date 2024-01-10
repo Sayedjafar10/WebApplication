@@ -6,9 +6,17 @@
    @if(meddelande.ReceiverId == ViewBag.CVUser)
    {
         <li>
-         <h3>@(meddelande?.Sender?.Name)</h3>
-         <h3>@meddelande.Timestamp</h3>
-         <p>@meddelande.Content</p>
+            @if(meddelande.Sender == null)
+            {
+                <h3>@meddelande.SenderName</h3>
+            }
+            else
+            {
+                <h3>@meddelande.Sender.Name</h3>
+            }
+                
+            <h3>@meddelande.Timestamp</h3>
+            <p>@meddelande.Content</p>
      
             @if (ViewBag.CurrentUser == ViewBag.CVUser)
             {
@@ -27,6 +35,10 @@
 </ul>
 
 <form asp-action="SendMessage" method="post">
+    @if(!User.Identity.IsAuthenticated)
+    {
+        <input asp-for="SenderName" type="text" class="form-control" placeholder="Namn" required/>
+    }
     <input asp-for="ReceiverId" type="text" class="form-control" value="@ViewBag.CVUser" hidden/>
     @if (ViewBag.CurrentUser == ViewBag.CVUser)
     {

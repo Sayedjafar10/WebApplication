@@ -18,7 +18,7 @@ namespace WebApplication2.Models
 		// När en inloggad användare skickar ett meddelande så får SenderId automatiskt ett värde från UserManager??
 		// Anonyma användare får null på SenderId och måste sedan input sitt namn som SenderName som skickas med istället
 		public string? SenderId { get; set; } // "Nullable" främmande nyckel från Usertabellen - (PROBLEM vi har inte ID för User)
-		//public string SenderName { get; set; } // Används istället för SenderId när anonym användare skickar meddelande
+		public string? SenderName { get; set; } // Används istället för SenderId när anonym användare skickar meddelande
 
 		//Ska vi kanske bara använda SenderName - hämta Namn från Usertabellen och om man inte är inloggad får man skriva sitt namn
 

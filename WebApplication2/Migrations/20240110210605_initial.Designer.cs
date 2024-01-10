@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WebApplication2.Migrations
 {
     [DbContext(typeof(CVContext))]
-    [Migration("20240109135351_s")]
-    partial class s
+    [Migration("20240110210605_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -256,46 +256,6 @@ namespace WebApplication2.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "1",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "266ce1be-a713-468f-9d55-1f9816f466d7",
-                            Email = "testuser1@example.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            Name = "Test User 1",
-                            NormalizedEmail = "TESTUSER1@EXAMPLE.COM",
-                            NormalizedUserName = "TESTUSER1",
-                            PasswordHash = "AQAAAAIAAYagAAAAEB/wK8FcXVkExiMPiSmNic0OFVyQChzNy8etaZU/CWHJ0grW5rTxWuGMbIOSTSm08A==",
-                            PhoneNumberConfirmed = false,
-                            ProfilePictureUrl = "url1",
-                            ProfileType = 1,
-                            SecurityStamp = "128cc728-846a-4294-894b-3701ef36855c",
-                            TwoFactorEnabled = false,
-                            UserName = "testuser1@example.com"
-                        },
-                        new
-                        {
-                            Id = "2",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "4cda90a6-5ba4-4a5f-bb35-1a408c5a2488",
-                            Email = "testuser2@example.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            Name = "Test User 2",
-                            NormalizedEmail = "TESTUSER2@EXAMPLE.COM",
-                            NormalizedUserName = "TESTUSER2",
-                            PasswordHash = "AQAAAAIAAYagAAAAEF6lR7SX9RyTPHtqF962bPivgnTtwvG+5tzNrHiaH2XnVo0JAtQ1VHZt0U5OKChw1A==",
-                            PhoneNumberConfirmed = false,
-                            ProfilePictureUrl = "url2",
-                            ProfileType = 0,
-                            SecurityStamp = "f9301141-b366-4dda-a218-cf7546fd2b2c",
-                            TwoFactorEnabled = false,
-                            UserName = "testuser2"
-                        });
                 });
 
             modelBuilder.Entity("WebApplication2.Models.CV", b =>
@@ -426,6 +386,9 @@ namespace WebApplication2.Migrations
 
                     b.Property<string>("SenderId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("SenderName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("datetime2");
@@ -748,7 +711,7 @@ namespace WebApplication2.Migrations
             modelBuilder.Entity("WebApplication2.Models.WebApplication2.Models.CVImage", b =>
                 {
                     b.HasOne("WebApplication2.Models.CV", "CV")
-                        .WithMany()
+                        .WithMany("CVImages")
                         .HasForeignKey("CVId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -775,6 +738,8 @@ namespace WebApplication2.Migrations
             modelBuilder.Entity("WebApplication2.Models.CV", b =>
                 {
                     b.Navigation("CVErfarenheter");
+
+                    b.Navigation("CVImages");
 
                     b.Navigation("CVKompetenser");
 
