@@ -120,7 +120,7 @@ public class CVContext : IdentityDbContext<User>
             .OnDelete(DeleteBehavior.Restrict);
 
 
-        modelBuilder.Entity<User>().HasData(UserTestData.GetTestData().ToArray());
+        //modelBuilder.Entity<User>().HasData(UserTestData.GetTestData().ToArray());
     }
 
 }
