@@ -55,6 +55,9 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             @* Placerar dessa länkar längst till höger med hjälp av bootstrap *@
+
+                            <span id="unreadMessagesCount"></span> //Osäker om jag placerat denna rätt
+                            
                             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
                                 <ul class="navbar-nav">
                                     <li class="nav-item">
@@ -98,6 +101,20 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @* Script för att hämta antalet olästa meddelanden *@
+    <script>
+        function updateUnreadMessagesCount() {
+            $.ajax({
+                url: '@Url.Action("GetUnreadMessageCount", "Message")',
+                success: function (count) {
+                    $('#unreadMessagesCount').text(`📨 Du har ${count} olästa meddelanden`);
+                }
+            });
+        }
+        setInterval(updateUnreadMessagesCount, 60000); // Uppdatera varje 60 sekunder
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

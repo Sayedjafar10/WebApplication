@@ -67,6 +67,17 @@ namespace WebApplication2.Controllers
         }
 
 
+        // hämta ANTALET olästa meddelanden för den inloggade användaren
+
+        public async Task<int> GetUnreadMessageCount()
+        {
+            var userId = _userManager.GetUserId(User);
+            var unreadCount = await _cvContext.Meddelanden.CountAsync(m => m.ReceiverId == userId && !m.IsRead);
+            return unreadCount;
+        }
+
+
+
 
         // GET: MessageController   
         public ActionResult Index()
