@@ -12,17 +12,21 @@
 <!--Hela CVt-->
 <div>
     <!--Användar info-->
-    <div>
-        <h2>@Model.User.Name</h2>
-        <h2>@Model.User.Email</h2>
+    <div class="container mt-4">
+        <div class="border border-success p-3 rounded">
+            <h4>Profil:</h4>
+            <h6>Användarnamn: @Model.User.Name</h6>
+            <h6>Mail: @Model.User.Email</h6>
+        </div>
     </div>
-
 
   
 
     <!--Kompetens-->
+    
     <div>
         <ul>
+
             @foreach (var kompetens in Model.CVKompetenser)
             {
                 if (kompetens.CVId == Model.Id)
