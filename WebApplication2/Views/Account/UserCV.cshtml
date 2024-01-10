@@ -110,35 +110,36 @@
                 href="/Account/AddUtbildning">Lägg till Utbildning
             </a>
         }
-    </div>
+        <div>
+            <h2 class="mb-4">Deltagande projekt</h2>
+            <div>
+                <ul class="list-unstyled">
+                    @foreach (var createdProject in Model.User.CreatedProjects)
+                    {
+                        <li class="mb-3">
+                            <div class="p-3 border rounded">
+                                <h3 class="h5">@createdProject.Namn</h3>
+                                <p class="small text-muted">Skapad av: @createdProject.Creator</p>
+                                <p><small>Från @createdProject.StartTime.ToString("yyyy-MM-dd") till @createdProject.EndTime.ToString("yyyy-MM-dd")</small></p>
+                                <p>@createdProject.Beskrivning</p>
+                            </div>
+                        </li>
+                    }
+                    @foreach (var userParticipationProject in Model.User.UsersParticipationsProjects)
+                    {
+                        <li class="mb-3">
+                            <div class="p-3 border rounded">
+                                <h3 class="h5">@userParticipationProject.Project.Namn</h3>
+                                <p class="small text-muted">Skapad av: @userParticipationProject.Project.Creator</p>
+                                <p><small>Från @userParticipationProject.Project.StartTime.ToString("yyyy-MM-dd") till @userParticipationProject.Project.EndTime.ToString("yyyy-MM-dd")</small></p>
+                                <p>@userParticipationProject.Project.Beskrivning</p>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
 
-    <div>
-        <ul>
-            @foreach (var createdProject in Model.User.CreatedProjects)
-            {
-                <li>
-                    <div>
-                        <h3>@createdProject.Namn</h3>
-                        <p>@createdProject.Creator</p>
-                        <p>Från @createdProject.StartTime.ToString() till @createdProject.EndTime.ToString()</p>
-                        <p>@createdProject.Beskrivning</p>
-                    </div>
-                </li>
-            }
-            @foreach (var userParticipationProject in Model.User.UsersParticipationsProjects)
-            {
-                <li>
-                    <div>
-                        <h3>@userParticipationProject.Project.Namn</h3>
-                        <p>@userParticipationProject.Project.Creator</p>
-                        <p>Från @userParticipationProject.Project.StartTime.ToString() till @userParticipationProject.Project.EndTime.ToString()</p>
-                        <p>@userParticipationProject.Project.Beskrivning</p>
-                    </div>
-                </li>   
-            }
-        </ul>
-    </div>
-</div>
 <style>
     .cv-image-container {
         max-width: 150px; /* Anpassa storleken efter behov */
