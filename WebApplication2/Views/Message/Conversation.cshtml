@@ -1,28 +1,37 @@
 ﻿@model Meddelande
-
 <ul>
 @foreach(var meddelande in ViewBag.Messages)
 {
-   if(meddelande.ReceiverId == ViewBag.CVUser)
+   
+   @if(meddelande.ReceiverId == ViewBag.CVUser)
    {
-     <li>
+        <li>
          <h3>@(meddelande?.Sender?.Name)</h3>
          <h3>@meddelande.Timestamp</h3>
          <p>@meddelande.Content</p>
-         @if (!meddelande.IsRead)
-         {
-             <form asp-controller="Message" asp-action="MarkAsRead" method="post">
-                 <input type="hidden" name="messageId" value="@meddelande.MessageId" />
-                 <button type="submit" class="btn btn-sm btn-primary">Markera som läst</button>
-             </form>
-         }
-     </li>   
-   }     
+     
+            @if (ViewBag.CurrentUser == ViewBag.CVUser)
+            {
+                @if (!meddelande.IsRead)
+                {
+                    <form asp-controller="Message" asp-action="MarkAsRead" method="post">
+                        <input type="hidden" name="messageId" value="@meddelande.MessageId" />
+                        <button type="submit" class="btn btn-sm btn-primary">Markera som läst</button>
+                    </form>
+                }
+            }
+        </li>
+   }
+   
 }
 </ul>
 
 <form asp-action="SendMessage" method="post">
     <input asp-for="ReceiverId" type="text" class="form-control" value="@ViewBag.CVUser" hidden/>
+    @if (ViewBag.CurrentUser == ViewBag.CVUser)
+    {
+        <input asp-for="IsRead" type="checkbox" checked hidden/>
+    }
     <textarea asp-for="Content" type="text" class="form-control" rows="2"></textarea>
     <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block mb-4">Skicka</button>
 </form>
