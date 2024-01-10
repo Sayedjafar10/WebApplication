@@ -112,7 +112,8 @@
                 }
             });
         }
-        setInterval(updateUnreadMessagesCount, 60000); // Uppdatera varje 60 sekunder
+        updateUnreadMessagesCount(); // Kalla på olästa meddelanden direkt när sidan laddar 
+        setInterval(updateUnreadMessagesCount, 30000); // Och uppdatera sedan varje 30 sekunder
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)
