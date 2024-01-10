@@ -12,15 +12,26 @@
 <!--Hela CVt-->
 <div>
     <!--Användar info-->
+    
     <div class="container mt-4">
-        <div class="border border-success p-3 rounded">
-            <h4>Profil:</h4>
-            <h6>Användarnamn: @Model.User.Name</h6>
-            <h6>Mail: @Model.User.Email</h6>
+        <div class="border border-success p-3 rounded" style="max-width: 500px; border-width: 3px;">
+            <div class="d-flex flex-row align-items-center">
+                <div class="flex-grow-1">
+                    <h4>Profil:</h4>
+                    <h6>Användarnamn: @Model.User.Name</h6>
+                    <h6>Mail: @Model.User.Email</h6>
+                </div>
+                <div class="ml-3">
+                    @foreach (var image in Model.CVImages)
+                    {
+                        <div class="cv-image-container">
+                            <img src="/cvuploads/@image.FileName" alt="CV Image" class="img-fluid" />
+                        </div>
+                    }
+                </div>
+            </div>
         </div>
     </div>
-
-  
 
     <!--Kompetens-->
     
