@@ -608,6 +608,18 @@ public class AccountController : Controller
 
 
 
+    public IActionResult ProjektDeltagare()
+    {
+        var projektMedDeltagare = _cvContext.Projekts
+            .Select(p => new
+            {
+                ProjektNamn = p.Namn,
+                AntalDeltagare = p.UsersParticipationsProjects.Count
+            }).ToList();
+
+        ViewBag.ProjektMedDeltagare = projektMedDeltagare;
+        return View();
+    }
 
 
 

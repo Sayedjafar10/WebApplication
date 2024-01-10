@@ -328,9 +328,50 @@ $(document).ready(function(){
 					}
 						<a asp-action="SkapaProjekt" class="btn btn-outline-success mt-2" role="button">Lägg till projekt...</a>
 				</tbody>
+
 			</table>
 		</div>
 	</div>        
-</div>	
+</div>
+	
+
 </body>
+
+
+
+
+@{
+	ViewData["Title"] = "Projekt Deltagare";
+}
+
+<h2>Projekt och Deras Deltagare</h2>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Projekt Namn</th>
+			<th>Antal Deltagare</th>
+		</tr>
+	</thead>
+	<tbody>
+		@if (ViewBag.ProjektMedDeltagare != null)
+		{
+			foreach (var projekt in ViewBag.ProjektMedDeltagare)
+			{
+				<tr>
+					<td>@projekt.ProjektNamn</td>
+					<td>@projekt.AntalDeltagare</td>
+				</tr>
+			}
+		}
+		else
+		{
+			<tr>
+				<td colspan="2">Inga projekt att visa.</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
+
 </html>

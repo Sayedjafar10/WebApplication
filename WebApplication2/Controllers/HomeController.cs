@@ -161,15 +161,27 @@ namespace WebApplication2.Controllers
             }
             return View(model);
         }
+		public IActionResult ProjektDeltagare()
+		{
+			var projektMedDeltagare = _cvContext.Projekts
+				.Select(p => new
+				{
+					ProjektNamn = p.Namn,
+					AntalDeltagare = p.UsersParticipationsProjects.Count // Antag att detta är din navigeringsegenskap
+				}).ToList();
 
-        //[HttpPost]
-        //public IActionResult Add(CV cv)
-        //{
-        //    _cvService.AddCV(cv);
-        //    return RedirectToAction("Index");
-        //}
+			return View(projektMedDeltagare);
+		}
 
-        // Metoder för att redigera och ta bort CV kan läggas till här
-    } 
+
+		//[HttpPost]
+		//public IActionResult Add(CV cv)
+		//{
+		//    _cvService.AddCV(cv);
+		//    return RedirectToAction("Index");
+		//}
+
+		// Metoder för att redigera och ta bort CV kan läggas till här
+	}
 }
 
