@@ -161,39 +161,53 @@ public class AccountController : Controller
         return View(model);
     }
 
-    [Authorize]
-    [HttpPost]
-    public async Task<IActionResult> UpdateUser(UpdateUserViewModel model)
-    {
-        if (ModelState.IsValid)
-        {
-            var user = await _userManager.GetUserAsync(User);
-            if (user != null)
-            {
-                user.Email = model.Email;
-                user.Name = model.Name;
-                user.ProfileType = model.ProfileType;
-                // Uppdatera andra fält här
+	[Authorize]
+	[HttpPost]
+	public async Task<IActionResult> UpdateUser(UpdateUserViewModel model)
+	{
+		if (ModelState.IsValid)
+		{
+			try
+			{
+				var user = await _userManager.GetUserAsync(User);
+				if (user != null)
+				{
+					// Uppdaterar användarens information
+					user.Email = model.Email;
+					user.Name = model.Name;
+					user.ProfileType = model.ProfileType;
+					
 
-                var result = await _userManager.UpdateAsync(user);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
-                }
-            }
-        }
-        return View(model);
-    }
+				
+					var result = await _userManager.UpdateAsync(user);
+					if (result.Succeeded)
+					{
+						// Om uppdateringen lyckas, omdirigera användaren
+						return RedirectToAction("Index", "Home");
+					}
+
+					
+					foreach (var error in result.Errors)
+					{
+						ModelState.AddModelError("", error.Description);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				
+				//  ett generellt felmeddelande
+				ModelState.AddModelError("", "Ett fel inträffade vid bearbetning av din begäran.");
+			}
+		}
+		
+		return View(model);
+	}
 
 
 
 
-
-    [HttpPost]
+	[HttpPost]
     public async Task<IActionResult> Logout()
     {
         // Loggar ut användaren
@@ -211,37 +225,51 @@ public class AccountController : Controller
     }
 
 
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
-    {
-        if (!ModelState.IsValid)
-        {
-            return View(model);
-        }
+	[HttpPost]
+	[ValidateAntiForgeryToken]
+	public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+	{
+		if (!ModelState.IsValid)
+		{
+			return View(model);
+		}
 
-        var user = await _userManager.GetUserAsync(User);
-        if (user == null)
-        {
-            return RedirectToAction("Login");
-        }
+		try
+		{
+			var user = await _userManager.GetUserAsync(User);
+			if (user == null)
+			{
+				// om användaren hittades inte, omdirigerar  sidan till inloggningssidan
+				return RedirectToAction("Login");
+			}
 
-        var result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
-        if (result.Succeeded)
-        {
-            await _signInManager.RefreshSignInAsync(user);
-            return RedirectToAction("Index", "Home");
-        }
+		
+			var result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+			if (result.Succeeded)
+			{
+				// ifall lösenordsändringen lyckas, uppdatera inloggningssessionen och omdirigera till startsidan
+				await _signInManager.RefreshSignInAsync(user);
+				return RedirectToAction("Index", "Home");
+			}
 
-        foreach (var error in result.Errors)
-        {
-            ModelState.AddModelError(string.Empty, error.Description);
-        }
+			
+			foreach (var error in result.Errors)
+			{
+				ModelState.AddModelError(string.Empty, error.Description);
+			}
+		}
+		catch (Exception ex)
+		{
+			
+			ModelState.AddModelError("", "Ett fel inträffade vid bearbetning av din begäran.");
+		}
 
-        return View(model);
-    }
+		
+		return View(model);
+	}
 
-    public async Task<IActionResult> ShowSearchForm(SearchModel searchModel)
+
+	public async Task<IActionResult> ShowSearchForm(SearchModel searchModel)
     {
         return View(searchModel);
     }
@@ -310,61 +338,82 @@ public class AccountController : Controller
     }
 
     [HttpPost]
-    [HttpPost]
-    public async Task<IActionResult> AddUtbildning(Utbildning model)
-    {
-        var userId = _userManager.GetUserId(User);
-        var cv = _cvContext.CVs.FirstOrDefault(c => c.UserId == userId);
-        if (cv != null)
-        {
-            var cvUtbildning = new CVUtbildning { CVId = cv.Id, Utbildning = model };
-            _cvContext.CVUtbildningar.Add(cvUtbildning);
-            await _cvContext.SaveChangesAsync();
+  
+	[HttpPost]
+	public async Task<IActionResult> AddUtbildning(Utbildning model)
+	{
+		try
+		{
+			var userId = _userManager.GetUserId(User);
+			var cv = _cvContext.CVs.FirstOrDefault(c => c.UserId == userId);
+			if (cv != null)
+			{
+				var cvUtbildning = new CVUtbildning { CVId = cv.Id, Utbildning = model };
+				_cvContext.CVUtbildningar.Add(cvUtbildning);
+				await _cvContext.SaveChangesAsync();
 
-            return RedirectToAction("UserCV");
-        }
+				return RedirectToAction("UserCV");
+			}
 
-        return View(model);
-    }
+			
+			ModelState.AddModelError("", "CV not found.");
+			return View(model);
+		}
+		catch (Exception ex)
+		{
+			
+			ModelState.AddModelError("", "An error occurred while processing your request.");
+
+			return View(model);
+		}
+	}
 
 
 
-    [HttpGet]
+
+	[HttpGet]
     public IActionResult Upload()
     {
         var files = _cvContext.UploadedFiles.ToList();
         return View(files); // Visa alla uppladdade filer
     }
 
-    [HttpPost]
-    public async Task<IActionResult> Upload(IFormFile file)
-    {
-        if (file != null && file.Length > 0)
-        {
-            var fileName = Path.GetFileName(file.FileName);
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", fileName);
+	[HttpPost]
+	public async Task<IActionResult> Upload(IFormFile file)
+	{
+		
+		if (file != null && file.Length > 0)
+		{
+			// Hämta filens namn
+			var fileName = Path.GetFileName(file.FileName);
+			// Skapa en sökväg 
+			var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", fileName);
 
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
+			// Skapa en ny filstream 
+			using (var stream = new FileStream(filePath, FileMode.Create))
+			{
+				await file.CopyToAsync(stream);
+			}
 
-            var uploadedFile = new UploadedFile { FileName = fileName };
-            _cvContext.UploadedFiles.Add(uploadedFile);
-            await _cvContext.SaveChangesAsync();
+			
+			var uploadedFile = new UploadedFile { FileName = fileName };
+			_cvContext.UploadedFiles.Add(uploadedFile);
+		
+			await _cvContext.SaveChangesAsync();
 
-            return RedirectToAction("Upload"); // Omdirigera för att undvika dubbel postning
-        }
+		
+			return RedirectToAction("Upload");
+		}
 
-        return View();
-    }
-
-
-
+		return View();
+	}
 
 
 
-    [HttpPost]
+
+
+
+	[HttpPost]
     public async Task<IActionResult> DeleteFile(int fileId)
     {
         var fileToDelete = await _cvContext.UploadedFiles.FindAsync(fileId);
