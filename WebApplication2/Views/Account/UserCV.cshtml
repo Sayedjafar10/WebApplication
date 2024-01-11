@@ -12,6 +12,12 @@
     }
     @if (ViewBag.CurrentUser == Model.UserId)
     {
+        <div class="d-flex justify-content-end my-0">
+            <a class="btn btn-outline-success" asp-controller="Message" asp-action="Conversation" asp-route-id="@Model.UserId">
+                ✉️ Mina meddelanden
+            </a>
+
+        </div>
         <a asp-controller="Account" asp-action="KompetensList" class="btn btn-outline-primary mb-3">Redigera min kompetenslista</a>
         <a asp-controller="Account" asp-action="ErfarenhetLista" class="btn btn-outline-secondary mb-3">Redigera min erfarenhetslista</a>
         <a asp-controller="Account" asp-action="UtbildningLista" class="btn btn-outline-warning mb-3">Redigera min utbildningslista</a>
