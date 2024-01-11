@@ -297,21 +297,24 @@ $(document).ready(function(){
 							<td>@projekt.StartTime.ToString("yyyy-MM-dd")</td>
 							<td>@projekt.EndTime.ToString("yyyy-MM-dd")</td>
 							<td>@projekt.Creator.Name</td>
-								@{
-									bool isParticipant = false;
-								}
-							<td>
-							@foreach(var userParticipationProject in projekt.UsersParticipationsProjects)
-							{
-								if(userParticipationProject.UserID == ViewBag.CurrentUser)
-								{
-										isParticipant = true;
-										break;
-								}
+							@{
+								bool isParticipant = false;
 							}
 							@foreach (var userParticipationProject in projekt.UsersParticipationsProjects)
 							{
-								<p>@userParticipationProject.User.Name</p>
+								if (userParticipationProject.UserID == ViewBag.CurrentUser)
+								{
+									isParticipant = true;
+									break;
+								}
+							}
+							<td>
+							@foreach (var userParticipationProject in projekt.UsersParticipationsProjects)
+							{
+								if((int)userParticipationProject.User.ProfileType == 1 || User.Identity.IsAuthenticated)
+								{
+									<p>@userParticipationProject.User.Name</p>
+								}
 							}
 							</td>
 							@if (projekt.CreatorID != ViewBag.CurrentUser && User.Identity.IsAuthenticated && !isParticipant)
