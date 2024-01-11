@@ -43,7 +43,7 @@ namespace WebApplication2.Controllers
 
         public IActionResult Users()
         {
-            // Hämta en lista över tillgängliga användare från databasen
+            // Hämta de tillgängliga användare från databasen
             var availableUsers = _cvContext.Users.ToList();
 
             // Skicka med användarlistan till vyn
@@ -155,9 +155,7 @@ namespace WebApplication2.Controllers
 
 
 
-        //Finns massa grejer ovan IDK vem som skrivit det men jag bortser från det och lägger in min kod här under /Denis
-        //Jag har även skapat en MessageViewModel 
-
+      
 
         // Visa meddelande "form" för att skapa ett meddelande (skillnad på skapa och skicka)
         public IActionResult CreateMessage(string receiverId)
@@ -166,82 +164,7 @@ namespace WebApplication2.Controllers
             return View(model);
         }
 
-        /*[HttpPost]
-        [ValidateAntiForgeryToken]
-  
-        // Kalla på denna action för att skicka meddelande
-        public async Task<IActionResult> SendMessage(SendMessageViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var meddelande = new Meddelande
-                {
-                    ReceiverId = model.ReceiverId,
-                    Content = model.Content,
-                    Timestamp = DateTime.Now,
-                    IsRead = false
-                };
-
-                if (User.Identity.IsAuthenticated)
-                {
-                    // För inloggade användare:
-                    var user = await _userManager.GetUserAsync(User);
-                    meddelande.SenderId = user.Id; // Hämta Id från inloggad User (VI HAR INTE ID PÅ USER)
-                    meddelande.SenderName = user.Name; // Alternativt kan vi sätta SenderName från Users namn
-                }
-                else
-                {
-                    // För anonyma användare som inte är inloggade
-                    meddelande.SenderName = model.SenderName; // Använd namnet som användaren matar in
-                }
-
-
-                // Logik för att spara meddelande till databasen
-                _cvContext.Meddelanden.Add(meddelande);
-                await _cvContext.SaveChangesAsync();
-
-
-                return RedirectToAction("Success"); // Omdirigera till en annan sida
-            }
-
-            // Hantera error eller återgå till form för att skicka meddelande
-            return View(model);
-        }*/
-
-
-
-        // Action för att visa mottagna meddelanden
-        /*public async Task<IActionResult> ReceivedMessages()
-        {
-            var userId = _userManager.GetUserId(User);
-            var messages = await _meddelandeService.GetMessagesByUserIdAsync(userId);
-
-            var messageViewModels = messages.Select(m => new MessageViewModel
-            {
-                MessageId = m.MessageId,
-                Content = m.Content,
-                Timestamp = m.Timestamp,
-                IsRead = m.IsRead,
-                SenderId = m.SenderId,
-                SenderName = m.SenderName
-            }).ToList();
-
-            return View(messageViewModels);
-        }
-
-
-        // Action för att markera meddelande som läst
-
-        [HttpGet]
-        public async Task<IActionResult> MarkAsRead(int messageId)
-        {
-            await _meddelandeService.MarkMessageAsReadAsync(messageId);
-
-            // Omdirigera Redirect back to the list of received messages, or to a confirmation page
-            return RedirectToAction("ReceivedMessages");
-        }*/
-
-
+       
 
     }
 }

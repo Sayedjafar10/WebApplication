@@ -58,30 +58,43 @@ namespace WebApplication2.Controllers
 
 
 
-        public IActionResult VaraProjekt()
-        {
-            List<Project> projectsToShow;
 
-            if (User.Identity.IsAuthenticated)
-            {
-               
-                projectsToShow = _cvContext.Projekts.ToList();
-            }
-            else
-            {
-               
-                projectsToShow = _cvContext.Projekts
-                                            .Where(p => _cvContext.Users
-                                                            .Any(u => u.Id == p.CreatorID && u.ProfileType == ProfileType.Public))
-                                            .ToList();
-            }
+		public IActionResult VaraProjekt()
+		{
+			try
+			{
+				List<Project> projectsToShow;
 
-            ViewBag.Meddelande = "Totalt antal projekt i databasen: " + projectsToShow.Count.ToString();
-            ViewBag.CurrentUser = _userManager.GetUserId(User);
-            return View(projectsToShow);
-        }
+				// Kontrollera om användaren är inloggad
+				if (User.Identity.IsAuthenticated)
+				{
+					
+					projectsToShow = _cvContext.Projekts.ToList();
+				}
+				else
+				{
+					// Om användaren inte är inloggad, hämta endast public projekt
+					projectsToShow = _cvContext.Projekts
+											   .Where(p => _cvContext.Users
+															   .Any(u => u.Id == p.CreatorID && u.ProfileType == ProfileType.Public))
+											   .ToList();
+				}
 
-        public IActionResult GaMedProjekt(string userId, int projectId) 
+				
+				ViewBag.Meddelande = "Totalt antal projekt i databasen: " + projectsToShow.Count.ToString();
+				
+				ViewBag.CurrentUser = _userManager.GetUserId(User);
+
+				return View(projectsToShow);
+			}
+			catch (Exception ex)
+			{
+				
+				return RedirectToAction("Error"); 
+			}
+		}
+
+		public IActionResult GaMedProjekt(string userId, int projectId) 
         {
             var userParticipation = new UserParticipationProject
             {
@@ -175,14 +188,6 @@ namespace WebApplication2.Controllers
 		}
 
 
-		//[HttpPost]
-		//public IActionResult Add(CV cv)
-		//{
-		//    _cvService.AddCV(cv);
-		//    return RedirectToAction("Index");
-		//}
-
-		// Metoder för att redigera och ta bort CV kan läggas till här
 	}
 }
 
