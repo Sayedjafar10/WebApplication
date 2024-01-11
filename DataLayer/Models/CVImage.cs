@@ -16,8 +16,6 @@ namespace DataLayer.Models
         [Required]
         public string CVId { get; set; }
 
-        // Navigationsegenskap till CV
-        // [ForeignKey("CVId")]
-        // public virtual CV CV { get; set; }
+       
     }
 }

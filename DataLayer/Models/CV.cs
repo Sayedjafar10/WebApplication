@@ -10,12 +10,11 @@ namespace DataLayer.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id{ get; set; }
-        public virtual ICollection<CVUtbildning>? CVUtbildningar { get; set; } //ÄNDRAT till lista av utbildningar som pekar på Utbildning / CVUtbildning ?
-        public virtual ICollection<CVErfarenhet>? CVErfarenheter { get; set; } //ÄNDRAT till lista av erfarenheter som pekar på CVErfarenhet 
-        public virtual ICollection<CVKompetens>? CVKompetenser { get; set; }  //ÄNDRAT till lista av kompetenser som pekar CVKompetens ?
+        public virtual ICollection<CVUtbildning>? CVUtbildningar { get; set; } 
+        public virtual ICollection<CVErfarenhet>? CVErfarenheter { get; set; }
+        public virtual ICollection<CVKompetens>? CVKompetenser { get; set; }  
 
-        //[ForeignKey(nameof(Projekt.Id))]
-        //public virtual Projekt Projekt { get; set; }  //Navigation property, ska försöka konvertera ProjektID till ProjektNamn på projekt senare.  
+
         public virtual ICollection<CVImage> CVImages { get; set; }
 
         public string UserId { get; set; }
@@ -24,7 +23,6 @@ namespace DataLayer.Models
 
 
 
-        // Lägg till ytterligare fält efter behov, profilbild är ett krav...
     }
 }
 

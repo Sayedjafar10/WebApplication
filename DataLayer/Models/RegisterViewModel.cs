@@ -26,6 +26,6 @@ namespace DataLayer.Models
         [Required]
         public ProfileType ProfileType { get; set; }
 
-        // Andra egenskaper efter behov
+      
     }
 }

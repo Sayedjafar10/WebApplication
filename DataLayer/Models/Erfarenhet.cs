@@ -11,7 +11,6 @@ namespace DataLayer.Models
 
         
 
-        // Navigeringsegenskap för många-till-många-relation till CV
         public virtual ICollection<CVErfarenhet> CVErfarenheter { get; set; }
     }
 
