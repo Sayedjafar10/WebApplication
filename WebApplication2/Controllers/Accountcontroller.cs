@@ -23,7 +23,7 @@ public class AccountController : Controller
     }
     public IActionResult HittaCV()
     {
-        // Hämta en lista över tillgängliga användare från databasen
+        // Hämta en lista över de  tillgängliga användare från databasen
         var availableUsers = _cvContext.Users.ToList();
 
         // Skicka med användarlistan till vyn
@@ -143,7 +143,7 @@ public class AccountController : Controller
         return View(model);
     }
 
-    // ... Andra metoder (t.ex. Logga ut)
+    
 
 
     [Authorize]
@@ -197,7 +197,7 @@ public class AccountController : Controller
 			{
 				
 				//  ett generellt felmeddelande
-				ModelState.AddModelError("", "Ett fel inträffade vid bearbetning av din begäran.");
+				ModelState.AddModelError("", "Ett fel inträffade .");
 			}
 		}
 		
@@ -221,7 +221,7 @@ public class AccountController : Controller
     [HttpGet]
     public IActionResult ChangePassword()
     {
-        return View(); // Skapa en ny instans av ViewModel
+        return View(); 
     }
 
 
@@ -356,13 +356,13 @@ public class AccountController : Controller
 			}
 
 			
-			ModelState.AddModelError("", "CV not found.");
+			ModelState.AddModelError("", "CV hittades ej .");
 			return View(model);
 		}
 		catch (Exception ex)
 		{
 			
-			ModelState.AddModelError("", "An error occurred while processing your request.");
+			ModelState.AddModelError("", "Ett fel inträffat.");
 
 			return View(model);
 		}
@@ -462,11 +462,11 @@ public class AccountController : Controller
             _cvContext.CVImages.Add(cvImage);
             await _cvContext.SaveChangesAsync();
 
-            // Omdirigera användaren tillbaka till CV-sidan eller hantera uppladdningen som behövs
+            // Omdirigera användaren tillbaka till CV-sidan 
             return RedirectToAction("UserCV");
         }
 
-        return View("Error"); // eller hantera fel på ett lämpligt sätt
+        return View("Error"); 
     }
 
 
@@ -483,15 +483,15 @@ public class AccountController : Controller
                 System.IO.File.Delete(filePath);
             }
 
-            // Ta bort objektet från databasen
+          
             _cvContext.CVImages.Remove(cvImage);
             await _cvContext.SaveChangesAsync();
 
-            // Omdirigera användaren, anpassa efter ditt flöde
-            return RedirectToAction("UserCV"); // eller återgå till lämplig sida
+          
+            return RedirectToAction("UserCV"); 
         }
 
-        return View("Error"); // eller visa lämpligt felmeddelande
+        return View("Error"); 
     }
 
 
@@ -522,7 +522,7 @@ public class AccountController : Controller
             return View(erfarenheter);
         }
 
-        // Om det inte finns något CV eller erfarenheter, skicka tillbaka en tom lista eller hantera det på lämpligt sätt
+       
         return View(new List<Erfarenhet>());
     }
 
@@ -540,7 +540,7 @@ public class AccountController : Controller
 
     public IActionResult KompetensList()
     {
-        // Hämta ID för den aktuellt inloggade användaren
+       
         var userId = _userManager.GetUserId(User);
 
         // Hämta användarens CV
@@ -556,7 +556,7 @@ public class AccountController : Controller
             return View(kompetenser);
         }
 
-        // Om det inte finns något CV eller kompetenser, skicka tillbaka en tom lista eller hantera det på lämpligt sätt
+    
         return View(new List<Kompetens>());
     }
 
@@ -624,7 +624,7 @@ public class AccountController : Controller
             return View(utbildningar);
         }
 
-        // Om det inte finns något CV eller utbildningar, skicka tillbaka en tom lista eller hantera det på lämpligt sätt
+    
         return View(new List<Utbildning>());
     }
 

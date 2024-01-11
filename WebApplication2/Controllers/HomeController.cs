@@ -116,7 +116,7 @@ namespace WebApplication2.Controllers
 
         }
 
-        // En post metod som skapar och lagrar projektet i databasen 'CVDatabas' och i tabellen 'dbo.Projekts'
+        
         [HttpPost]
         [Authorize]
         public IActionResult SkapaProjekt(Project projekt)
@@ -181,7 +181,7 @@ namespace WebApplication2.Controllers
 				.Select(p => new
 				{
 					ProjektNamn = p.Namn,
-					AntalDeltagare = p.UsersParticipationsProjects.Count // Antag att detta är din navigeringsegenskap
+					AntalDeltagare = p.UsersParticipationsProjects.Count 
 				}).ToList();
 
 			return View(projektMedDeltagare);
