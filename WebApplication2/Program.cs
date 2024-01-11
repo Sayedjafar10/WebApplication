@@ -1,11 +1,9 @@
-
-
-
-
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using WebApplication2.Models;
+using DataLayer;
+using DataLayer.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 

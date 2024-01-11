@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2.Models;
+using DataLayer.Models;
 using Microsoft.IdentityModel.Tokens;
-using WebApplication2.Models.WebApplication2.Models;
 
 public class AccountController : Controller
 {
