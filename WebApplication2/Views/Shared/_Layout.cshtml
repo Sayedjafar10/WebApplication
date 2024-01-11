@@ -55,17 +55,17 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             @* Placerar dessa länkar längst till höger med hjälp av bootstrap *@
-
-                            <span id="unreadMessagesCount"></span> //Osäker om jag placerat denna rätt
                             
                             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
                                 <ul class="navbar-nav">
+                                    <li><span id="unreadMessagesCount"></span></li>
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="UpdateUser">Min profil</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="UserCV" asp-route-id="">Mitt CV</a>
                                     </li>
+
                                     <li class="nav-item">
                                         <form method="post" asp-controller="Account" asp-action="Logout">
                                             <button type="submit" class="nav-link text-dark" style="border: none; background: none; cursor: pointer;">Logga ut</button>

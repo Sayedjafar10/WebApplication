@@ -1,19 +1,27 @@
 ﻿@model IEnumerable<Erfarenhet>
 
-<h2>Erfarenhetslista</h2>
+<h2>Redigera erfarenhetslista</h2>
 
-<table>
-    <tr>
-        <th>Titel</th>
-        <th>Beskrivning</th>
-        <th></th>
-    </tr>
-    @foreach (var erfarenhet in Model)
-    {
-        <tr>
-            <td>@erfarenhet.Title</td>
-            <td>@erfarenhet.Beskrivning</td>
-            <td><a asp-action="EditErfarenhet" asp-route-id="@erfarenhet.Id">Redigera</a></td>
-        </tr>
-    }
-</table>
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Titel</th>
+                <th>Beskrivning</th>
+                <th>Åtgärder</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var erfarenhet in Model)
+            {
+                <tr>
+                    <td>@erfarenhet.Title</td>
+                    <td>@erfarenhet.Beskrivning</td>
+                    <td>
+                        <a class="btn btn-secondary mb-3" asp-action="EditErfarenhet" asp-route-id="@erfarenhet.Id">Redigera</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

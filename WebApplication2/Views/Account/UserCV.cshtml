@@ -1,19 +1,29 @@
 ﻿@model CV
 <!--MeddelandeKonversation-->
 <div class="text-right">
-    <a class="btn btn-outline-success" asp-controller="Message" asp-action="Conversation" asp-route-id="@Model.UserId">
-        <i class="fas fa-envelope"></i> Starta Chatt
-    </a>
-    <a asp-controller="Account" asp-action="KompetensList" class="btn btn-primary">Visa Kompetenslista</a>
-    <a asp-controller="Account" asp-action="ErfarenhetLista" class="btn btn-secondary">Visa Erfarenhetslista</a>
-    <a asp-controller="Account" asp-action="UtbildningLista" class="btn btn-success">Visa Utbildningslista</a>
+    @if (ViewBag.CurrentUser != Model.UserId)
+    {
+        <div class="d-flex justify-content-end my-0">
+            <a class="btn btn-outline-success" asp-controller="Message" asp-action="Conversation" asp-route-id="@Model.UserId">
+                ✉️ Skicka ett meddelande
+            </a>
+        </div>
 
+    }
+    @if (ViewBag.CurrentUser == Model.UserId)
+    {
+        <a asp-controller="Account" asp-action="KompetensList" class="btn btn-outline-primary mb-3">Redigera min kompetenslista</a>
+        <a asp-controller="Account" asp-action="ErfarenhetLista" class="btn btn-outline-secondary mb-3">Redigera min erfarenhetslista</a>
+        <a asp-controller="Account" asp-action="UtbildningLista" class="btn btn-outline-warning mb-3">Redigera min utbildningslista</a>
+
+
+    }
 </div>
 <!--Hela CVt-->
 <div>
     <!--Användar info-->
     
-    <div class="container mt-4">
+    <div class="container mt-0">
         <div class="border border-success p-3 rounded" style="max-width: 500px; border-width: 3px;">
             <div class="d-flex flex-row align-items-center">
                 <div class="flex-grow-1">
@@ -55,7 +65,7 @@
         {
             @if (ViewBag.CurrentUser == Model.UserId)
             {
-                <a class="btn btn-outline-success" href="/Account/AddKompetens">
+                <a class="btn btn-outline-primary" href="/Account/AddKompetens">
                     <i class="fas fa-plus"></i> Lägg till Kompetens
                 </a>
             }
@@ -83,7 +93,7 @@
         </ul>
         @if (ViewBag.CurrentUser == Model.UserId)
         {
-            <a class="btn btn-outline-success"
+            <a class="btn btn-outline-secondary"
             href="/Account/AddErfarenhet">Lägg till Erfarenhet
             </a>
         }
@@ -106,7 +116,7 @@
         </ul>
         @if (ViewBag.CurrentUser == Model.UserId)
         {
-            <a class="btn btn-outline-success"
+            <a class="btn btn-outline-warning"
                 href="/Account/AddUtbildning">Lägg till Utbildning
             </a>
         }

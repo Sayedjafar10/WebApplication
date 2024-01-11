@@ -1,19 +1,26 @@
 ﻿@model IEnumerable<Utbildning>
 
-<h2>Utbildningslista</h2>
+<h2>Redigera utbildningslista</h2>
 
-<table>
-    <tr>
-        <th>Namn</th>
-        <th>Beskrivning</th>
-        <th></th>
-    </tr>
-    @foreach (var utbildning in Model)
-    {
-        <tr>
-            <td>@utbildning.Namn</td>
-            <td>@utbildning.Beskrivning</td>
-            <td><a asp-action="EditUtbildning" asp-route-id="@utbildning.Id">Redigera</a></td>
-        </tr>
-    }
-</table>
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Namn</th>
+                <th>Beskrivning</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var utbildning in Model)
+            {
+                <tr>
+                    <td>@utbildning.Namn</td>
+                    <td>@utbildning.Beskrivning</td>
+                    <td>
+                        <a class="btn btn-warning mb-3" asp-action="EditUtbildning" asp-route-id="@utbildning.Id">Redigera</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

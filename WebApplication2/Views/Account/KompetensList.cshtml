@@ -1,19 +1,27 @@
 ﻿@model IEnumerable<Kompetens>
 
-<h2>Kompetenslista</h2>
+<h2>Redigera kompetenslista</h2>
 
-<table>
-    <tr>
-        <th>Titel</th>
-        <th>Beskrivning</th>
-        <th></th>
-    </tr>
-    @foreach (var kompetens in Model)
-    {
-        <tr>
-            <td>@kompetens.Titel</td>
-            <td>@kompetens.Beskrivning</td>
-            <td><a asp-action="EditKompetens" asp-route-id="@kompetens.Id">Redigera</a></td>
-        </tr>
-    }
-</table>
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Titel</th>
+                <th>Beskrivning</th>
+                <th>Åtgärder</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var kompetens in Model)
+            {
+                <tr>
+                    <td>@kompetens.Titel</td>
+                    <td>@kompetens.Beskrivning</td>
+                    <td>
+                        <a class="btn btn-primary" asp-action="EditKompetens" asp-route-id="@kompetens.Id">Redigera</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
